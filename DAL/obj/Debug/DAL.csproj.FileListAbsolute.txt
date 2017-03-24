@@ -11,3 +11,16 @@ D:\baisong\OnlineSourceManage\DAL\bin\Debug\NPOI.OOXML.dll
 D:\baisong\OnlineSourceManage\DAL\bin\Debug\NPOI.OpenXml4Net.dll
 D:\baisong\OnlineSourceManage\DAL\bin\Debug\NPOI.OpenXmlFormats.dll
 D:\baisong\OnlineSourceManage\DAL\bin\Debug\NPOI.xml
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\DAL.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\DAL.pdb
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\Modle.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\NPOI.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\NPOI.OOXML.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\NPOI.OpenXml4Net.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\Modle.pdb
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\NPOI.xml
+D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.dll
+D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.pdb

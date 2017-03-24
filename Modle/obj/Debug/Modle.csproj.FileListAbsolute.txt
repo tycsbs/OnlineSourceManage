@@ -9,3 +9,14 @@ D:\baisong\OnlineSourceManage\Modle\bin\Debug\NPOI.OpenXml4Net.dll
 D:\baisong\OnlineSourceManage\Modle\bin\Debug\NPOI.OpenXmlFormats.dll
 D:\baisong\OnlineSourceManage\Modle\bin\Debug\NPOI.xml
 D:\baisong\OnlineSourceManage\Modle\obj\Debug\Modle.csprojResolveAssemblyReference.cache
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\Modle.dll
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\Modle.pdb
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\NPOI.dll
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\NPOI.OOXML.dll
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\NPOI.OpenXml4Net.dll
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\NPOI.xml
+D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.csprojResolveAssemblyReference.cache
+D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.dll
+D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.pdb
