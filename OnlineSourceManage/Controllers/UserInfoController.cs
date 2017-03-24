@@ -25,19 +25,25 @@ namespace OnlineSourceManage.Controllers
         }
 
         private readonly UsersBll _bll = new UsersBll();
+
         /// <summary>
         /// 获取所有用户
         /// </summary>
         /// <returns></returns>
         public ActionResult GetAllUsers()
         {
-            int t = _bll.GetAllUserList().Count;
-            var pageIndex = int.Parse(Request["page"]);  //当前页  
-            var pageSize = int.Parse(Request["rows"]);  //页面行数 
-            List<Users> list = _bll.GetUsersInPage(pageSize, pageIndex);
+            List<Users> listUsers = _bll.GetAllUserList();
 
-            return Json(new { total = t, rows = list }, JsonRequestBehavior.AllowGet);
+            int t = listUsers.Count;
+
+            var pageIndex = int.Parse(Request["page"]); //当前页  
+            var pageSize = int.Parse(Request["rows"]); //页面行数 
+            IEnumerable<Users> userses = listUsers.Skip((pageIndex - 1)*pageIndex).Take(pageSize).ToList();
+            //List<Users> list = _bll.GetUsersInPage(pageSize, pageIndex);
+
+            return Json(new {total = t, rows = userses}, JsonRequestBehavior.AllowGet);
         }
+
         /// <summary>
         /// 设置用户权限
         /// </summary>
@@ -51,6 +57,7 @@ namespace OnlineSourceManage.Controllers
             var s = result ? "ok" : "error";
             return Content(s);
         }
+
         /// <summary>
         /// 删除用户
         /// </summary>
@@ -81,10 +88,8 @@ namespace OnlineSourceManage.Controllers
             {
                 strName.Add(dataRow[0] as string);
                 strNum.Add(Convert.ToInt32(dataRow[1]));
-
             }
-            return Json(new { name = strName, num = strNum }, JsonRequestBehavior.AllowGet);
-
+            return Json(new {name = strName, num = strNum}, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -100,6 +105,7 @@ namespace OnlineSourceManage.Controllers
             var s = result ? "ok" : "error";
             return Content(s);
         }
+
         /// <summary>
         /// 模糊查询
         /// </summary>
@@ -108,20 +114,16 @@ namespace OnlineSourceManage.Controllers
         public ActionResult GetUserByKey(string keys)
         {
             List<Users> list = _bll.GetUsersByKey(keys);
-            return Json(new { total = list.Count, rows = list }, JsonRequestBehavior.AllowGet);
-
+            return Json(new {total = list.Count, rows = list}, JsonRequestBehavior.AllowGet);
         }
 
 
-       
         /// <summary>
         /// 导出EXCEL
         /// </summary>
         /// <returns></returns>
         public FileResult OutToExcel()
         {
-
-
             //创建Excel文件的对象
             HSSFWorkbook book = new HSSFWorkbook();
 
@@ -138,10 +140,10 @@ namespace OnlineSourceManage.Controllers
 
             //CellStyle
             ICellStyle headerStyle = book.CreateCellStyle();
-            headerStyle.Alignment = HorizontalAlignment.Center;// 左右居中    
-            headerStyle.VerticalAlignment = VerticalAlignment.Center;// 上下居中 
+            headerStyle.Alignment = HorizontalAlignment.Center; // 左右居中    
+            headerStyle.VerticalAlignment = VerticalAlignment.Center; // 上下居中 
             // 设置单元格的背景颜色（单元格的样式会覆盖列或行的样式）    
-            headerStyle.FillForegroundColor = (short)8;
+            headerStyle.FillForegroundColor = (short) 8;
             //定义font
             IFont font = book.CreateFont();
             font.FontHeightInPoints = 35;
@@ -157,12 +159,11 @@ namespace OnlineSourceManage.Controllers
 
 
             //将数据逐步写入sheet1各个行
-            string[] columnName = { "编号", "用户名", "角色", "性别", "所在地", "时间", "删除状态", "密码", "禁用状态" };
+            string[] columnName = {"编号", "用户名", "角色", "性别", "所在地", "时间", "删除状态", "密码", "禁用状态"};
             for (int i = 0; i < dt.Columns.Count; i++)
             {
                 ICell cell = row1.CreateCell(i);
                 cell.SetCellValue(columnName[i]);
-
             }
 
             int rowIndex = 2;
@@ -175,7 +176,6 @@ namespace OnlineSourceManage.Controllers
                     excelRow.CreateCell(j).SetCellValue(dtRow[j].ToString());
                     sheet1.AutoSizeColumn(j);
                 }
-
             }
 
             // 写入到客户端 
@@ -183,7 +183,6 @@ namespace OnlineSourceManage.Controllers
             book.Write(ms);
             ms.Seek(0, SeekOrigin.Begin);
             return File(ms, "application/vnd.ms-excel", "user.xls");
-
         }
     }
 }

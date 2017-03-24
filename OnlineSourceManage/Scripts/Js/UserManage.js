@@ -56,7 +56,7 @@ function initDataGrid(id) {
         loadMsg: "玩命加载中...",
         resizable: true,
         pagination: true,
-        pageSize: 10,
+        pageSize: 5,
         pageList: [5, 10, 15,25],
         fit: false,
         columns: [[

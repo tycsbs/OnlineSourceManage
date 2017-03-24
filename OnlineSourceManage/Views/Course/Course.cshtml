@@ -7,93 +7,88 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="/Plugins/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/Plugins/easyui/easyui.css" />
-    <link rel="stylesheet" href="/Plugins/WdatePicker/skin/WdatePicker.css" />
-    <link rel="stylesheet" href="/Plugins/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/Css/eduOnline.css" />
+    <link rel="stylesheet" href="/Plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/Plugins/easyui/easyui.css"/>
+    <link rel="stylesheet" href="/Plugins/WdatePicker/skin/WdatePicker.css"/>
+    <link rel="stylesheet" href="/Plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/Css/eduOnline.css"/>
     <style>
-        #addUser-wrapper {
-            padding: 10px;
-        }
+        #addUser-wrapper { padding: 10px; }
 
-            #addUser-wrapper input, #addUser-wrapper span {
-                margin: 5px 0;
-            }
+        #addUser-wrapper input, #addUser-wrapper span { margin: 5px 0; }
     </style>
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="/Plugins/ieCompatibility/html5.min.js"></script>
-    <script type="text/javascript" src="/Plugins/ieCompatibility/respond.js"></script>
+        <script type="text/javascript" src="/Plugins/ieCompatibility/html5.min.js"></script>
+        <script type="text/javascript" src="/Plugins/ieCompatibility/respond.js"></script>
     <![endif]-->
 </head>
 <body class="easyui-layout">
-    <div data-options="region:'center'">
+<div data-options="region:'center'">
 
-        <div class="container-fluid ">
-            <div class="row bg-grey">
-                <div class="col-md-12">
+    <div class="container-fluid ">
+        <div class="row bg-grey">
+            <div class="col-md-12">
 
-                    <div class="form-wrapper ">
-                        <span class="title">模糊查询：</span>
-                        <input type="text" class="form-control input-inline" id="searchVal">
-                        <button class="btn w-success btn-sm vertical-baseline" id="searchBtn">查询</button>
-                        <button class="btn w-success btn-sm vertical-baseline" id="addCourse">新增课程</button>
+                <div class="form-wrapper ">
+                    <span class="title">模糊查询：</span>
+                    <input type="text" class="form-control input-inline" id="searchVal">
+                    <button class="btn w-success btn-sm vertical-baseline" id="searchBtn">查询</button>
+                    <button class="btn w-success btn-sm vertical-baseline" id="addCourse">新增课程</button>
 
-                    </div>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-md-6 box-wrapper">
-                    <div class="chart" id="linechart"></div>
-                </div>
-                <div class="col-md-6 box-wrapper">
-                    <div class="chart" id="piechart"></div>
-                </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6 box-wrapper">
+                <div class="chart" id="linechart"></div>
             </div>
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <div class="grid-wrapper" id="content-filed">
-                        <table id="dataList"></table>
-                    </div>
+            <div class="col-md-6 box-wrapper">
+                <div class="chart" id="piechart"></div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="grid-wrapper" id="content-filed">
+                    <table id="dataList"></table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="form-wrapper text-center" id="addUser-wrapper">
-        <form id="courseForm">
-            <input type="hidden" name="cId" id="cId" />  
-            <span class="title">课程名称：</span>
-            <input type="text" class="form-control input-inline" name="cName" id="cName">
+<div class="form-wrapper text-center" id="addUser-wrapper">
+    <form id="courseForm">
+        <input type="hidden" name="cId" id="cId"/>
+        <span class="title">课程名称：</span>
+        <input type="text" class="form-control input-inline" name="cName" id="cName">
 
-            <span class="title">课程方向：</span>
-            <select name="types" class="input-inline form-control" id="types">
-                <option value="前端开发">前端开发</option>
-                <option value="后台开发">后台开发</option>
-                <option value="移动端开发">移动端开发</option>
-                <option value="数据库">数据库</option>
-                <option value="图形图像">图形图像</option>
-            </select>
-
-
-
-            <span class="title">课程难度：</span>
-            <select name="levelNum" class="input-inline form-control" id="levelNum">
-                <option value="0">初级</option>
-                <option value="1">中级</option>
-                <option value="2">高级</option>
-            </select>
-
-            <span class="title">一些描述：</span>
-            <input type="text" class="form-control input-inline" name="mark" id="mark">
+        <span class="title">课程方向：</span>
+        <select name="types" class="input-inline form-control" id="types">
+            <option value="前端开发">前端开发</option>
+            <option value="后台开发">后台开发</option>
+            <option value="移动开发">移动开发</option>
+            <option value="数据库">数据库</option>
+            <option value="运维&测试">运维&测试</option>
+            <option value="云计算&大数据">云计算&大数据</option>
+            <option value="UI设计">UI设计</option>
+        </select>
 
 
-            <button class="btn w-success mt-5" id="addCourseBtn">添加</button>
-            <button class="btn w-success mt-5" id="EditCourseBtn">添加</button>
+        <span class="title">课程难度：</span>
+        <select name="levelNum" class="input-inline form-control" id="levelNum">
+            <option value="0">初级</option>
+            <option value="1">中级</option>
+            <option value="2">高级</option>
+        </select>
 
-        </form>
-    </div>
+        <span class="title">一些描述：</span>
+        <input type="text" class="form-control input-inline" name="mark" id="mark">
+
+        <button class="btn w-success mt-5 btn-block" id="addCourseBtn">确定添加</button>
+        <button class="btn w-success mt-5 btn-block" id="EditCourseBtn">确定编辑</button>
+    </form>
+</div>
 
 
 </body>

@@ -26,11 +26,17 @@ namespace OnlineSourceManage.Controllers
         /// </summary>
         /// <param name="isdesc"></param>
         /// <returns></returns>
-        public ActionResult GetAllCourse(bool isdesc)   
+        public ActionResult GetAllCourse()
         {
-           List<Course> courses = _bll.GetAllCourse(isdesc);
-           return Json(new { total = courses.Count,rows=courses}, JsonRequestBehavior.AllowGet);
+            var isdesc = Convert.ToBoolean(Request["isdesc"]);
+            List<Course> courses = _bll.GetAllCourse(isdesc);
+
+            var pageIndex = int.Parse(Request["page"]); //当前页  
+            var pageSize = int.Parse(Request["rows"]); //页面行数 
+            IEnumerable<Course> courseList = courses.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new {total = courses.Count, rows = courseList}, JsonRequestBehavior.AllowGet);
         }
+
         /// <summary>
         /// 模糊查询课程 名称、难度、方向
         /// </summary>
@@ -38,11 +44,10 @@ namespace OnlineSourceManage.Controllers
         /// <returns></returns>
         public ActionResult GetCourseBySearch(string keys)
         {
-           
             List<Course> courses = _bll.GetCourseBySearch(keys);
-            return Json(new { total = courses.Count, rows = courses }, JsonRequestBehavior.AllowGet);
-
+            return Json(new {total = courses.Count, rows = courses}, JsonRequestBehavior.AllowGet);
         }
+
         /// <summary>
         /// 图表信息
         /// </summary>
@@ -68,8 +73,9 @@ namespace OnlineSourceManage.Controllers
                 }
             }
 
-            return Json(new {name = strList, num = intlist},JsonRequestBehavior.AllowGet);
+            return Json(new {name = strList, num = intlist}, JsonRequestBehavior.AllowGet);
         }
+
         /// <summary>
         /// 删除课程
         /// </summary>
@@ -80,6 +86,7 @@ namespace OnlineSourceManage.Controllers
             bool isok = _bll.DeleteCourse(id);
             return Content(isok ? "ok" : "error");
         }
+
         /// <summary>
         /// 添加课程
         /// </summary>
@@ -88,7 +95,7 @@ namespace OnlineSourceManage.Controllers
         /// <param name="levelNum"></param>
         /// <param name="mark"></param>
         /// <returns></returns>
-        public ActionResult AddCourse(string cName,string types,int levelNum,string mark)
+        public ActionResult AddCourse(string cName, string types, int levelNum, string mark)
         {
             var course = new Course
             {
@@ -100,6 +107,7 @@ namespace OnlineSourceManage.Controllers
             bool result = _bll.AddCourse(course);
             return Content(result ? "ok" : "error");
         }
+
         /// <summary>
         /// 根据ID获取课程的信息
         /// </summary>
@@ -120,11 +128,11 @@ namespace OnlineSourceManage.Controllers
         /// <param name="mark"></param>
         /// <param name="levelNum"></param>
         /// <returns></returns>
-        public ActionResult EditCourse(int id,string cName,string types,string mark,int levelNum)
+        public ActionResult EditCourse(int cId, string cName, string types, string mark, int levelNum)
         {
             var course = new Course
             {
-                cId = id,
+                cId = cId,
                 types = types,
                 mark = mark,
                 levelNum = levelNum,

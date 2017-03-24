@@ -90,16 +90,16 @@ function EditUser(that) {
 function initDataGrid(id) {
     /*初始化datagrid*/
     var optionSet = {
+        //url: "/Course/GetAllCourse",
         striped: true,
         fitColumns: true,
         rownumbers: true,
-        border: true,
-        editable: false,
         singleSelect: true,
         loadMsg: "玩命加载中...",
-        frozenColumns: [[]],
         resizable: true,
-        pagination: false,
+        pagination: true,
+        pageSize: 5,
+        pageList: [5, 10, 15, 25],
         fit: false,
         url: "/Course/GetAllCourse?isdesc=true",
         //data:{isdesc:true},
