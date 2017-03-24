@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../Plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../Plugins/easyui/easyui.css"/>
+    <link rel="stylesheet" href="../Plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../Css/eduOnline.css"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../Plugins/ieCompatibility/html5.min.js"></script>
+    <script type="text/javascript" src="../Plugins/ieCompatibility/respond.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container-fluid ">
+    <div class="row bg-grey">
+        <div class="col-md-12">
+            <div class="form-wrapper " id="btn-wrapper">
+                <input class="form-control input-inline"/>
+                <button id="outport" class="btn w-success vertical-top">查询</button>
+                <button class="btn w-success vertical-top pull-right" id="addUser">新增用户</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6 box-wrapper">
+            <div class="chart" id="linechart"></div>
+        </div>
+        <div class="col-md-3 box-wrapper">
+            <div class="chart" id="piechart-role"></div>
+        </div>
+        <div class="col-md-3 box-wrapper">
+            <div class="chart" id="piechart-sex"></div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-12 mt-5">
+            <div class="grid-wrapper" id="content-filed">
+                <table id="dataList"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../Js/common/jquery-1.10.1.js"></script>
+<script src="../Plugins/easyui/js/jquery.easyui.min.js"></script>
+<script src="../Plugins/easyui/js/easyui-lang-zh_CN.js"></script>
+<script src="../Plugins/layer/layer.js"></script>
+<script src="../Plugins/echarts/echarts.min.js"></script>
+<script src="../Js/UserManage.js"></script>
+</html>

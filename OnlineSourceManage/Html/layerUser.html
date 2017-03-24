@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../Plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../Css/eduOnline.css"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../Plugins/ieCompatibility/html5.min.js"></script>
+    <script type="text/javascript" src="../Plugins/ieCompatibility/respond.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hook">
+                <tr>
+                    <td>
+                        <span>姓名：</span>
+                        <input type="text" class="form-control input-inline">
+                    </td>
+                    <td>
+                        <span>角色：</span>
+                        <select name="role" id="role" class="form-control input-inline">
+                            <option value="1">普通用户</option>
+                            <option value="1">管理员</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>电话：</span>
+                        <input type="text" class="form-control input-inline">
+                    </td>
+                    <td>
+                        <span>邮箱：</span>
+                        <input type="email" class="form-control input-inline">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>QQ：</span>
+                        <input type="text" class="form-control input-inline">
+                    </td>
+                    <td>
+                        <span>所在地：</span>
+                        <select name="mail" id="mail" class="form-control input-inline">
+                            <option value="1">北京</option>
+                            <option value="1">天津</option>
+                            <option value="1">广州</option>
+                            <option value="1">深圳</option>
+                            <option value="1">杭州</option>
+                            <option value="1">上海</option>
+                            <option value="1">成都</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center" style="height: 45px;line-height: 45px;">
+                        <button class="btn w-success" style="width: 120px;" id="addUser">确定</button>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script src="../Js/common/jquery-1.10.1.js"></script>
+<script src="../Plugins/echarts/echarts.min.js"></script>
+<!--<script src="../../Plugins/layer/layer.js"></script>-->
+<script>
+    $(function () {
+        $("#addUser").click(function () {
+            parent.layer.closeAll()
+        })
+    })
+
+</script>
+</html>

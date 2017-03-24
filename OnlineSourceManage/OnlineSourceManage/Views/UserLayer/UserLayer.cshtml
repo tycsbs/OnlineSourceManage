@@ -1,0 +1,171 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/Plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Css/eduOnline.css" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/Plugins/ieCompatibility/html5.min.js"></script>
+    <script type="text/javascript" src="/Plugins/ieCompatibility/respond.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <div class="container-fluid" style="margin-top: 10px">
+        <div class="row">
+            <form id="userform">
+                <div class="col-md-12">
+                    <table class="table table-hook">
+                        <tr>
+                            <td>
+                                <span>用户名：</span>
+                                <input type="text" name="uName" id="uName" class="form-control input-inline">
+                            </td>
+                            <td>
+                                <span>角色：</span>
+                                <select name="role" id="role" class="form-control input-inline">
+                                    <option value="0">普通用户</option>
+                                    <option value="1">管理员</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>初始密码：</span>
+                                <input type="password" id="pwd" name="pwd" class="form-control input-inline">
+                            </td>
+                            <td>
+                                <span>确认密码：</span>
+                                <input type="password" id="pwd2" name="pwd2" class="form-control input-inline">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>性别：</span>
+                                <select name="sex" id="sex" class="form-control input-inline">
+                                    <option value="0">萌妹子</option>
+                                    <option value="1">帅小伙</option>
+                                </select>
+                            </td>
+                            <td>
+                                <span>所在地：</span>
+                                <select name="home" id="home" class="form-control input-inline"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center" style="height: 45px; line-height: 45px;">
+                                <a class="btn w-success" role="button" style="width: 120px;" id="addUser">确定</a>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+<script src="~/Scripts/Js/common/jquery-1.10.1.js"></script>
+<script src="~/Plugins/echarts/echarts.min.js"></script>
+<script src="~/Plugins/layer/layer.js"></script>
+<script>
+    $(function () {
+        //加载城市名称
+        loadArea();
+        //user操作
+        var id = window.location.search.split("=")[1];
+        if (id != "undefined") {//如果有id,则为编辑信息，首先根据id查出用户信息，绑定到表单上
+            $.ajax({
+                url: "/UserLayer/GetUserById",
+                data: { uId: id },
+                success: function (d) {
+                    var user = d.rows;
+                    $("#uName").val(user.uName);
+                    $("#pwd").val(user.pwd);
+                    $("#role").val(user.role);
+                    $("#sex").val(user.sex);
+                    $("#home").val(user.home);
+                    $("#pwd2").val(user.pwd);
+                }
+            });
+        }
+
+        //按钮点击事件
+        $("#addUser").click(function (e) {
+            e.preventDefault();
+            var pwd1 = $("#pwd").val();
+            var pwd2 = $("#pwd2").val();
+            var data = $("#userform").serialize();
+            if (id == "undefined") {
+
+                if (pwd1 == pwd2) {
+                    $.ajax({
+                        url: "/UserLayer/AddUser?" + data,
+                        success: function (d) {
+                            if (d == "ok") {
+                                parent.$("#dataList").datagrid("reload");
+                                parent.initEchart("linechart", "home");
+                                parent.initEchartPie("piechart-role", "role");
+                                parent.initEchartPie("piechart-sex", "sex");
+                                parent.layer.closeAll();
+                                parent.layer.msg("添加成功！");
+                            } else {
+                                parent.layer.closeAll();
+                                parent.layer.msg("添加失败！");
+                            }
+                        }
+                    });
+                } else {
+                    parent.layer.msg("密码必须一致！！！", { icon: 2, anim: 6 });
+                }
+            } else {
+                if (pwd1 == pwd2) {
+                    $.ajax({
+                        url: "/UserLayer/UpdataUser?" + data+"&uId="+id,
+                        success: function (d) {
+                            if (d == "ok") {
+                                parent.$("#dataList").datagrid("reload");
+                                parent.initEchart("linechart", "home");
+                                parent.initEchartPie("piechart-role", "role");
+                                parent.initEchartPie("piechart-sex", "sex");
+                                parent.layer.closeAll();
+                                parent.layer.msg("更新成功！");
+                            } else {
+                                parent.layer.closeAll();
+                                parent.layer.msg("更新失败！");
+                            }
+                        }
+                    });
+                } else {
+                    parent.layer.msg("密码必须一致！！！", { icon: 2, anim: 6 });
+                }
+            }
+        });
+
+
+        //加载地区信息
+        function loadArea() {
+            $.ajax({
+                url: "/UserLayer/GetProvice",
+                success: function (data) {
+                    var datas = data.rows, len = data.total;
+                    $("#home").empty();
+                    for (var i = 0; i < len; i++) {
+                        $("#home").append('<option value="' + datas[i] + '">' + datas[i] + '</option>');
+                    }
+
+                }
+            });
+        }
+    });
+    
+    
+</script>
+</html>

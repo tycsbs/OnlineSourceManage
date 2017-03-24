@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Css/handsontable.css" rel="stylesheet"/>
+
+    <script src="~/Scripts/Js/common/jquery-1.10.1.js"></script>
+    <script src="~/Scripts/handsontable/handsontable.full.js"></script>
+</head>
+<body>
+    <div id="table" class="hot handsontable htRowHeaders htColumnHeader" style="width: 100%; height: 600px; border: 1px solid #008000;overflow: hidden">
+    </div>
+</body>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var container = document.getElementById("table");
+       
+        $.ajax({
+            url: "/handson/getdata",
+            success: function (d) {
+                var result = d.rows;
+                for (var i = 0; i < d.total; i++) {
+                    result[i].sex = result[i].sex.toString() == "0" ? "女" : "男";
+                    result[i].role = result[i].role.toString() == "0" ? "普通用户" : "管理员";
+                    result[i].isDel = result[i].isDel.toString() == "0" ? "未删除" : "已删除";
+                    result[i].useable = result[i].useable.toString() == "0" ? "正常" : "被禁用";
+                }
+                var tb = new Handsontable(container,
+                {
+                    data: result,
+                    colWidths: 130,
+                    rowHeights: 30,
+                    stretchH: 'all',
+                    rowHeaders: true,
+                    colHeaders: ["编号","用户名", "密码", "角色", "性别", "所在地","时间","删除状态","用户状态"]
+                });
+                //tb.selectFirstCell();
+            }
+        });
+       
+    });
+
+</script>
+
+</html>

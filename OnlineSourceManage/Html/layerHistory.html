@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../Plugins/bootstrap/css/bootstrap.min.css"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../Plugins/ieCompatibility/html5.min.js"></script>
+    <script type="text/javascript" src="../Plugins/ieCompatibility/respond.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="height: 350px;margin-top: 10px;" id="echart"></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script src="../Js/common/jquery-1.10.1.js"></script>
+<script src="../Plugins/echarts/echarts.min.js"></script>
+<!--<script src="../../Plugins/layer/layer.js"></script>-->
+<script>
+
+    $(function(){
+        initEchart("echart")
+    })
+
+    /**
+     * 初始化图表
+     * @param id 容器id
+     */
+    function initEchart(id){
+        var container = echarts.init(document.getElementById(id));
+        var option = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['当日流量']
+            },
+            grid: {
+                top:40
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data:  (function(){
+                        var arr = []
+                        for(var i =1;i<31;i++){
+                            arr.push("2017年\n01月"+i+"日")
+                        }
+                        return arr
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            dataZoom: [{
+                type: 'inside',
+                start: 0,
+                end: 100
+            }],
+            series: [
+                {
+                    name: "当日流量",
+                    type: 'line',
+                    symbol:"circle",
+                    symbolSize:8,
+                    showAllSymbol:true,
+                    data: (function(){
+                        var arr = []
+                        for(var i =0;i<30;i++){
+                            arr.push((Math.random()*20).toFixed(2))
+                        }
+                        return arr
+                    })(),
+                    lineStyle: {
+                        normal: {
+                            color: "#14D5CD",
+                            width: '3'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: "#01babf"
+                        }
+                    },
+                    markLine: {
+                        data: [
+                            {
+                                name: '限值数',
+                                yAxis: 11,
+                                label: {
+                                    normal: {
+                                        formatter: "{b} {c}"
+                                    }
+                                },
+                                lineStyle:{
+                                    normal:{
+                                        color: '#f00',
+                                        width:2
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        };
+        container.setOption(option);
+    }
+
+
+</script>
+</html>

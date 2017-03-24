@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>eduOnline 后台管理系统</title>
+    <link rel="stylesheet" href="/Plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/Plugins/easyui/easyui.css"/>
+    <link rel="stylesheet" href="/Plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/Css/eduOnline.css"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/Plugins/ieCompatibility/html5.min.js"></script>
+    <script type="text/javascript" src="/Plugins/ieCompatibility/respond.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="header">
+    @*<span class="title"> <i class="fa fa-user-md"></i> 在线资源管理后台系统 </span>*@
+    <div class="pull-right">
+        <a href="javascript:;"> <i class="fa fa-sign-out"></i> 退出</a>
+    </div>
+</div>
+<div>
+    <!--导航路径-->
+    <article class="content-filed">
+        <ul class="breadcrumb">
+            <li>后台管理系统</li>
+            <li class="active">用户管理系统</li>
+        </ul>
+    </article>
+    <!--tab 切换-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="btn-wrapper" id="btn-wrapper">
+                    <button class="btn w-success" data-src="/UserInfo/Index"> 用户管理</button>
+                    <button class="btn" data-src="/Course/Course"> 课程管理</button>
+                    <button class="btn" data-src="chapterManage.html"> 章节管理</button>
+                </div>
+                <div class="grid-wrapper " id="content-filed">
+                    <iframe src="/UserInfo/Index" class="frame-height" id="Frames" frameborder="0"></iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="~/Scripts/Js/common/jquery-1.10.1.js"></script>
+<script src="~/Plugins/easyui/js/jquery.easyui.min.js"></script>
+<script src="~/Plugins/easyui/js/easyui-lang-zh_CN.js"></script>
+<script src="~/Plugins/layer/layer.js"></script>
+
+<script src="~/Scripts/Js/adminIndex.js"></script>
+</html>
