@@ -63,11 +63,12 @@
 
     <div class="form-wrapper text-center" id="addUser-wrapper">
         <form id="courseForm">
+            <input type="hidden" name="cId" id="cId" />  
             <span class="title">课程名称：</span>
-            <input type="text" class="form-control input-inline" name="cName">
+            <input type="text" class="form-control input-inline" name="cName" id="cName">
 
             <span class="title">课程方向：</span>
-            <select name="types" class="input-inline form-control">
+            <select name="types" class="input-inline form-control" id="types">
                 <option value="前端开发">前端开发</option>
                 <option value="后台开发">后台开发</option>
                 <option value="移动端开发">移动端开发</option>
@@ -78,17 +79,18 @@
 
 
             <span class="title">课程难度：</span>
-            <select name="levelNum" class="input-inline form-control">
+            <select name="levelNum" class="input-inline form-control" id="levelNum">
                 <option value="0">初级</option>
                 <option value="1">中级</option>
                 <option value="2">高级</option>
             </select>
 
             <span class="title">一些描述：</span>
-            <input type="text" class="form-control input-inline" name="mark">
+            <input type="text" class="form-control input-inline" name="mark" id="mark">
 
 
-            <button class="btn w-success mt-5" id="addUserBtn">添加</button>
+            <button class="btn w-success mt-5" id="addCourseBtn">添加</button>
+            <button class="btn w-success mt-5" id="EditCourseBtn">添加</button>
 
         </form>
     </div>

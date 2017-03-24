@@ -90,12 +90,47 @@ namespace OnlineSourceManage.Controllers
         /// <returns></returns>
         public ActionResult AddCourse(string cName,string types,int levelNum,string mark)
         {
-            Course course = new Course();
-            course.cName = cName;
-            course.levelNum = levelNum;
-            course.mark = mark;
-            course.types = types;
+            var course = new Course
+            {
+                cName = cName,
+                levelNum = levelNum,
+                mark = mark,
+                types = types
+            };
             bool result = _bll.AddCourse(course);
+            return Content(result ? "ok" : "error");
+        }
+        /// <summary>
+        /// 根据ID获取课程的信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult GetCourseById(int id)
+        {
+            var course = _bll.GetCourseById(id);
+            return Json(new {rows = course}, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cName"></param>
+        /// <param name="types"></param>
+        /// <param name="mark"></param>
+        /// <param name="levelNum"></param>
+        /// <returns></returns>
+        public ActionResult EditCourse(int id,string cName,string types,string mark,int levelNum)
+        {
+            var course = new Course
+            {
+                cId = id,
+                types = types,
+                mark = mark,
+                levelNum = levelNum,
+                cName = cName
+            };
+            bool result = _bll.EditCourse(course);
             return Content(result ? "ok" : "error");
         }
     }

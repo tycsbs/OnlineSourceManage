@@ -25,34 +25,66 @@ $(function () {
             });
         }
     });
-    $("#addCourse").click(function() {
-        layer.open({
-            type: 1,
-            shade: false,
-            title: "新增用户",
-            area: ["400px", "300px"],
-            content: $("#addUser-wrapper")
-        });
+    //点击新增按钮，弹出表单
+    $("#addCourse").click(function () {
+        //显示提交新增课程按钮，隐藏提交编辑课程按钮
+        $("#EditCourseBtn").css("display", "none");
+        $("#addCourseBtn").css("display", "block");
+        AlertCourseForm("新增用户");
     });
-    $("#addUserBtn").click(function() {
+    //提交新增课程的表单 添加课程
+    $("#addCourseBtn").click(function () {
         var parm = $("#courseForm").serialize();
-        $.ajax({
-            url: "/Course/AddCourse?"+parm,
-            success:function(data) {
-                if (data == "ok") {
-                    layer.msg("添加成功！", { icon: 1, time: 800 });
-                    $("#dataList").datagrid("reload");
-                    initEchart("linechart", "types");
-                    initEchartPie("piechart", "levelNum");
-                } else {
-                    layer.msg("添加失败", { icon: 2, time: 800 });
-                }
-            }
-        });
+        ExcuteAjax("/Course/AddCourse", parm);
     });
+    $("#EditCourseBtn").click(function () {
+        var parm = $("#courseForm").serialize();
+        ExcuteAjax("/Course/EditCourse", parm);
+    });
+
+    //编辑用户信息
+
 });
 
+//根据不同的接口进行课程的新增、修改操作
+function ExcuteAjax(url, parm) {
+    $.ajax({
+        url: url+"?" + parm,
+        success: function (data) {
+            if (data == "ok") {
+                layer.msg("操作成功！", { icon: 1, time: 800 });
+                $("#dataList").datagrid("reload");
+                initEchart("linechart", "types");
+                initEchartPie("piechart", "levelNum");
+            } else {
+                layer.msg("操作失败", { icon: 2, time: 800 });
+            }
+        }
+    });
+}
 
+
+//点击编辑按钮，弹出表单
+function EditUser(that) {
+    $("#addCourseBtn").css("display", "none");
+    $("#EditCourseBtn").css("display", "block");
+    var id = $(that).data("id");
+    AlertCourseForm("编辑用户");
+    if (id != null) {
+        $.ajax({
+            url: "/Course/GetCourseById",
+            data: { id: id },
+            success: function (data) {
+                var course = data.rows;
+                $("#cName").val(course.cName);
+                $("#types").val(course.types);
+                $("#mark").val(course.mark);
+                $("#levelNum").val(course.levelNum);
+                $("#cId").val(id);
+            }
+        });
+    }
+}
 
 
 function initDataGrid(id) {
@@ -87,7 +119,7 @@ function initDataGrid(id) {
             {
                 field: "operate", title: "操作", width: 100,
                 formatter: function (value, row) {
-                    return '<a href="javascript:;" class="delUser text-danger" data-id="' + row.cId + '" onclick="DeleteUser(this)">删除</a> /' + ' <a href="javascript:;" class="editUser" data-name="' + row.name + '" data-id="' + row.devName + '">编辑</a>';
+                    return '<a href="javascript:;" class="delUser text-danger" data-id="' + row.cId + '" onclick="DeleteUser(this)">删除</a> /' + ' <a href="javascript:;" class="editUser" data-id="' + row.cId + '" onclick="EditUser(this)">编辑</a>';
                 }
             }
         ]]
@@ -270,4 +302,15 @@ function DeleteUser(that) {
             });
         });
 
+}
+
+
+function AlertCourseForm(title) {
+    layer.open({
+        type: 1,
+        shade: false,
+        title: title,
+        area: ["400px", "300px"],
+        content: $("#addUser-wrapper")
+    });
 }
