@@ -120,11 +120,11 @@ namespace OnlineSourceManage.Controllers
         /// <param name="mark"></param>
         /// <param name="levelNum"></param>
         /// <returns></returns>
-        public ActionResult EditCourse(int id,string cName,string types,string mark,int levelNum)
+        public ActionResult EditCourse(int cId,string cName,string types,string mark,int levelNum)
         {
             var course = new Course
             {
-                cId = id,
+                cId = cId,
                 types = types,
                 mark = mark,
                 levelNum = levelNum,
