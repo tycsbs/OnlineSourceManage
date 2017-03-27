@@ -24,3 +24,5 @@ D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\NPOI.xml
 D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.dll
 D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.pdb
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\DAL.dll.CodeAnalysisLog.xml
+D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\DAL.dll.lastcodeanalysissucceeded

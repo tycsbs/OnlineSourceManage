@@ -92,3 +92,5 @@ D:\baisong\gitrepository\OnlineSourceManage\OnlineSourceManage\bin\zh-Hans\Syste
 D:\baisong\gitrepository\OnlineSourceManage\OnlineSourceManage\obj\Debug\OnlineSourceManage.csprojResolveAssemblyReference.cache
 D:\baisong\gitrepository\OnlineSourceManage\OnlineSourceManage\obj\Debug\OnlineSourceManage.dll
 D:\baisong\gitrepository\OnlineSourceManage\OnlineSourceManage\obj\Debug\OnlineSourceManage.pdb
+D:\baisong\gitrepository\OnlineSourceManage\OnlineSourceManage\bin\OnlineSourceManage.dll.CodeAnalysisLog.xml
+D:\baisong\gitrepository\OnlineSourceManage\OnlineSourceManage\bin\OnlineSourceManage.dll.lastcodeanalysissucceeded
