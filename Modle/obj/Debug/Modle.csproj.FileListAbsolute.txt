@@ -22,3 +22,14 @@ D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.pdb
 D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\Modle.dll.CodeAnalysisLog.xml
 D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\Modle.dll.lastcodeanalysissucceeded
 D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.csprojResolveAssemblyReference.cache
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\Modle.dll
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\Modle.pdb
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\ICSharpCode.SharpZipLib.dll
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\NPOI.dll
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\NPOI.OOXML.dll
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\NPOI.OpenXml4Net.dll
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\NPOI.OpenXmlFormats.dll
+F:\vsCode\OnlineSourceManage\Modle\bin\Debug\NPOI.xml
+F:\vsCode\OnlineSourceManage\Modle\obj\Debug\Modle.dll
+F:\vsCode\OnlineSourceManage\Modle\obj\Debug\Modle.pdb
+F:\vsCode\OnlineSourceManage\Modle\obj\Debug\Modle.csprojResolveAssemblyReference.cache

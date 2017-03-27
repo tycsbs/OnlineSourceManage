@@ -26,3 +26,16 @@ D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.dll
 D:\baisong\gitrepository\OnlineSourceManage\DAL\obj\Debug\DAL.pdb
 D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\DAL.dll.CodeAnalysisLog.xml
 D:\baisong\gitrepository\OnlineSourceManage\DAL\bin\Debug\DAL.dll.lastcodeanalysissucceeded
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\DAL.dll
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\DAL.pdb
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\ICSharpCode.SharpZipLib.dll
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\Modle.dll
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\NPOI.dll
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\NPOI.OOXML.dll
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\NPOI.OpenXml4Net.dll
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\NPOI.OpenXmlFormats.dll
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\Modle.pdb
+F:\vsCode\OnlineSourceManage\DAL\bin\Debug\NPOI.xml
+F:\vsCode\OnlineSourceManage\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+F:\vsCode\OnlineSourceManage\DAL\obj\Debug\DAL.dll
+F:\vsCode\OnlineSourceManage\DAL\obj\Debug\DAL.pdb
