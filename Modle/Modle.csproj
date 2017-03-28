@@ -57,6 +57,7 @@
     <Compile Include="Chapter.cs" />
     <Compile Include="ChapterSource.cs" />
     <Compile Include="Course.cs" />
+    <Compile Include="EduProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users.cs" />
   </ItemGroup>

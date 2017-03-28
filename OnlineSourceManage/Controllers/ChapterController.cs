@@ -18,12 +18,17 @@ namespace OnlineSourceManage.Controllers
         {
             return View("Chapter");
         }
-        
+        /// <summary>
+        /// 获取所有课程的所有章节
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetChapter()
         {
             List<Chapter> list = _bll.GetAllChapter();
             return Json(new{total=list.Count,rows=list},JsonRequestBehavior.AllowGet);
         }
+
+
 
     }
 }
