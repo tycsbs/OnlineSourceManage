@@ -28,8 +28,6 @@ D:\baisong\gitrepository\OnlineSourceManage\BLL\bin\Debug\NPOI.xml
 D:\baisong\gitrepository\OnlineSourceManage\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
 D:\baisong\gitrepository\OnlineSourceManage\BLL\obj\Debug\BLL.dll
 D:\baisong\gitrepository\OnlineSourceManage\BLL\obj\Debug\BLL.pdb
-D:\baisong\gitrepository\OnlineSourceManage\BLL\bin\Debug\BLL.dll.CodeAnalysisLog.xml
-D:\baisong\gitrepository\OnlineSourceManage\BLL\bin\Debug\BLL.dll.lastcodeanalysissucceeded
 F:\vsCode\OnlineSourceManage\BLL\bin\Debug\BLL.dll
 F:\vsCode\OnlineSourceManage\BLL\bin\Debug\BLL.pdb
 F:\vsCode\OnlineSourceManage\BLL\bin\Debug\DAL.dll

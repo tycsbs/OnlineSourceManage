@@ -4,12 +4,87 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
 using Modle;
 
 namespace BLL
 {
     public class ChapterBll
     {
+
+        private readonly  ChapterDal _dal = new ChapterDal();
+
+        #region 章节增加方法
+
+        public bool AddChapter(Chapter chapter)
+        {
+            return _dal.AddChapter(chapter);
+        }
+
+        #endregion
+
+        #region 删除指定章节
+        /// <summary>
+        /// 根据Id删除章节
+        /// </summary>
+        /// <param name="chId">章节id</param>
+        /// <returns></returns>
+        public bool DeleteChapter(int chId)
+        {
+           
+            return _dal.DeleteChapter(chId);
+        }
+        #endregion
+
+        #region 查询章节内容
+        /// <summary>
+        /// 获取所有章节列表
+        /// </summary>
+        /// <returns></returns>
+        public List<Chapter> GetAllChapter()
+        {
+
+            DataTable dt = _dal.GetAllChapter();
+            return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
+        }
+
+
+        /// <summary>
+        /// 根据章节Id查找课程章节
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public List<Chapter> GetChapterListById(int cid)
+        {
+            
+            DataTable dt = _dal.GetChapterListById(cid);
+            return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
+        }
+
+        /// <summary>
+        /// 根据章节Id查找课程章节
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<Chapter> GetChapterById(int id)
+        {
+            DataTable dt = _dal.GetChapterById(id);
+            return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
+        }
+
+        /// <summary>
+        /// 根据章节名称查找课程
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public List<Chapter> GetChapterBySearch(string keys)
+        {
+            DataTable dt = _dal.GetChapterBySearch(keys);
+            return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
+
+        }
+        #endregion
+
 
 
         #region 关系转对象

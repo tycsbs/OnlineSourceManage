@@ -119,6 +119,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HandsonController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
@@ -298,6 +299,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Course\Course.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Chapter\Chapter.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
