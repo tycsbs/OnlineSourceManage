@@ -3,42 +3,73 @@
  */
 
 
-var gridConfig = {
-    striped: true,
-    fitColumns: true,
-    rownumbers: true,
-    border: true,
-    //autoHeight: true,
-    editable: false,
-    singleSelect: true,
-    loadMsg: '玩命加载中...',
-    frozenColumns: [[]],
-    resizable: true,
-    pagination: true,
-    fit: false
-};
+
+
 $(function () {
 
-    initEchart("echart");
+    chart("line");
+    chart("bar");
     //初始化数据列表容器高度
-    initDataGridHeight("#dataList", 356);
+    initDataGridHeight(".dataList", 360);
     //初始化数据列表
     initDataGrid("#dataList");
+   
 });
 
+
+/**
+ * 删除指定章节
+ * @param {} that 
+ * @returns {} 
+ */
+function DeleteChapter(that) {
+    var chId = $(that).data("id");
+    layer.confirm("确定删除这一章节？",
+        function () {
+            $.ajax({
+                url: "/Chapter/DeleteChapter",
+                data: { chId: chId },
+                success: function (msg) {
+                    if (msg == "ok") {
+                        layer.msg("删除成功！", { icon: 1 });
+                    } else {
+                        layer.msg("删除失败！", { icon: 3 });
+                    }
+                    $("#dataList").datagrid("reload");
+                }
+            });
+        });
+
+}
+
+/**
+ * 初始化Echart 获取数据
+ * @param {} id 
+ * @returns {} 
+ */
+function chart(id) {
+    $.ajax({
+        url: "/Chapter/GetChapterForChart",
+        success: function (d) {
+            var seriesData = d.num;
+            var xAxisData = d.name;
+            initEchart(id, seriesData, xAxisData);
+        }
+    });
+}
 
 /**
  * 初始化图表
  * @param id 容器id
  */
-function initEchart(id) {
+function initEchart(id, seriesData, xAxisData) {
     var container = echarts.init(document.getElementById(id));
     var option = {
         tooltip: {
             trigger: 'axis'
         },
         legend: {
-            data: ['当日流量'],
+            data: ['课程章节统计'],
             top: 8
         },
         grid: {
@@ -48,21 +79,15 @@ function initEchart(id) {
             show: true,
             right: 40,
             feature: {
-                magicType: {show: true, type: ['line', 'bar']}
+                magicType: { show: true, type: ['line', 'bar'] }
             }
         },
         calculable: true,
         xAxis: [
             {
                 type: 'category',
-                boundaryGap: false,
-                data: (function () {
-                    var arr = [];
-                    for (var i = 0; i < 14; i++) {
-                        arr.push(subMap[i % 7]);
-                    }
-                    return arr;
-                })()
+                boundaryGap: true,
+                data: xAxisData
             }
         ],
         yAxis: [
@@ -70,22 +95,18 @@ function initEchart(id) {
                 type: 'value'
             }
         ],
-        dataZoom: [{
-            type: 'inside',
-            start: 0,
-            end: 100
-        }],
+        label: {
+            normal: {
+                show: true,
+                formatter: '{b} 共 {c} 节',
+                position: 'top'
+            }
+        },
         series: [
             {
-                name: "当日流量",
-                type: 'line',
-                data: (function () {
-                    var arr = [];
-                    for (var i = 0; i < 14; i++) {
-                        arr.push((Math.random() * 20).toFixed(2));
-                    }
-                    return arr;
-                })(),
+                name: "课程章节统计",
+                type: 'bar',
+                data: seriesData,
                 areaStyle: {
                     normal: {
                         opacity: 0.6
@@ -109,7 +130,6 @@ function initEchart(id) {
     container.setOption(option);
 }
 
-var subMap = ["Jquery实战", "HTML5精髓", "Nodejs", "VUE", "CSS3动画效果", "SQL-server", "mongodb"];
 /**
  * 初始化数据列表
  * @param id 容器id
@@ -117,22 +137,34 @@ var subMap = ["Jquery实战", "HTML5精髓", "Nodejs", "VUE", "CSS3动画效果"
 function initDataGrid(id) {
     /*初始化datagrid*/
     var optionSet = {
-        url:"/Chapter/GetChapter",
+        striped: true,
+        fitColumns: true,
+        rownumbers: true,
+        border: true,
+        editable: false,
+        singleSelect: true,
+        loadMsg: '玩命加载中...',
+        pagination: true,
+        pageSize: 5,
+        pageList: [5, 10, 15, 25],
+        url: "/Chapter/GetChapter",
+        fit: true,
         columns: [[
-            {field: 'cName', title: '课程名称', width: 100},
-            {field: 'chName', title: '章节名称', width: 100},
-            {field: 'mark', title: '章节描述', width: 100},
-            {field: 'starttime', title: '上传时间', width: 100},
+            { field: 'cName', title: '课程名称', width: 100 },
+            { field: 'chName', title: '章节名称', width: 100 },
+            { field: 'mark', title: '章节描述', width: 100 },
+            { field: 'types', title: '课程方向', width: 100 },
+            { field: 'starttime', title: '创建时间', width: 100 },
             {
                 field: 'manage', title: '更多操作', width: 100, formatter: function (index, row) {
-                return '<a href="javascript:;" class="delUser text-danger" data-name="' + row.name + '" data-id="' + row.id + '">删除</a> /' + ' <a href="javascript:;" class="editUser" data-name="' + row.name + '" data-id="' + row.devName + '">编辑</a>';
+                    return '<a href="javascript:;" class="delUser text-danger" data-id="' + row.chId + '" data-cId="' + row.cid + '" onclick="DeleteChapter(this)">删除</a> /'
+                        + ' <a href="javascript:;" class="editUser" data-name="' + row.name + '" data-chIs="' + row.chId + '">编辑</a>';
                 }
             }
 
         ]]
     };
-    var option = $.extend({}, gridConfig, optionSet);
-    $(id).datagrid(option);
+    $(id).datagrid(optionSet);
 }
 
 /**

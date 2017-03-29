@@ -48,6 +48,22 @@ namespace BLL
             return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
         }
 
+        public DataTable GetChapterlist()   
+        {
+            return _dal.GetAllChapter();
+        }
+
+        /// <summary>
+        /// 统计章节信息
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetChapterForChart()   
+        {
+            return _dal.GetChapterForChart();
+        }
+
+
+
 
         /// <summary>
         /// 根据章节Id查找课程章节
@@ -105,6 +121,10 @@ namespace BLL
                 {
                     model.chName = row["chName"].ToString();
                 }
+                if (row["cName"] != null)
+                {
+                    model.cName = row["cName"].ToString();
+                }
                 if (row["starttime"] != null)
                 {
                     model.starttime = row["starttime"].ToString();
@@ -112,6 +132,10 @@ namespace BLL
                 if (row["mark"] != null)
                 {
                     model.mark = row["mark"].ToString();
+                }
+                if (row["types"] != null)
+                {
+                    model.types = row["types"].ToString();
                 }
                 if (row["isDel"] != null && row["isDel"].ToString() != "")
                 {

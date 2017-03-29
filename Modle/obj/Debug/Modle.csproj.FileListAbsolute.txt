@@ -19,7 +19,6 @@ D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\NPOI.OpenXmlFormats.
 D:\baisong\gitrepository\OnlineSourceManage\Modle\bin\Debug\NPOI.xml
 D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.dll
 D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.pdb
-D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.csprojResolveAssemblyReference.cache
 F:\vsCode\OnlineSourceManage\Modle\bin\Debug\Modle.dll
 F:\vsCode\OnlineSourceManage\Modle\bin\Debug\Modle.pdb
 F:\vsCode\OnlineSourceManage\Modle\bin\Debug\ICSharpCode.SharpZipLib.dll

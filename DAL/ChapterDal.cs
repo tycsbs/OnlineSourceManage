@@ -41,7 +41,16 @@ namespace DAL
         /// <returns></returns>
         public DataTable GetAllChapter()
         {
-            string sql = "SELECT * FROM dbo.Chapter WHERE isDel = '0'";
+            string sql = "SELECT dbo.Course.cName,chName,chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.isDel,dbo.Chapter.mark,[types] FROM( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId) WHERE dbo.Course.isDel = '0' AND dbo.Chapter.isDel = '0' ORDER BY dbo.Chapter.cId";
+            return SqlHelper.SqlDataTable(sql);
+        }
+        /// <summary>
+        /// 统计章节信息
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetChapterForChart()   
+        {
+            string sql = "SELECT dbo.Course.cName,COUNT(0) AS num FROM ( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId)WHERE dbo.Course.isDel = '0' GROUP BY cName";
             return SqlHelper.SqlDataTable(sql);
         }
 

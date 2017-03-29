@@ -21,6 +21,10 @@ namespace Modle
 
         public string chName { set; get; }
 
+        public string cName { set; get; }
+
+        public string types { set; get; }   
+
         public string starttime { set; get; }
 
         public string mark { set; get; }
