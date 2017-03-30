@@ -8,14 +8,100 @@
 $(function () {
 
     chart("line");
-    chart("bar");
+    //chart("bar");
     //初始化数据列表容器高度
     initDataGridHeight(".dataList", 360);
     //初始化数据列表
     initDataGrid("#dataList");
-   
+    loadCourseInForm();
+    //initDataGrid("#dataList1");
+    //模糊查询
+    $("#searchBtn").on('click', function () {
+        var v = $("#searchVal").val();
+        if ("" != v) {
+            $.ajax({
+                url: "/Chapter/SearchChapter",
+                data: { keys: v },
+                success: function (data) {
+                    $("#dataList").datagrid("loadData", data);
+                }
+            });
+        } else {
+            layer.msg("查询不能为空");
+        }
+    });
+    //新增章节---------------
+    $("#addChapter").click(function () {
+        $("#chapterEdit").css("display", "none");
+        $("#chapterAdd").css("display", "block");
+        $("#cName").empty();
+
+        loadCourseInForm();
+        AlertCourseForm("新增章节", $("#form1"));
+        $("#cName").attr("disabled", false);
+    });
+    $("#chapterAdd").click(function () {
+       
+        var parm = $("#form1").serialize();
+        ExcuteAjax("/Chapter/AddChapter", parm);
+        
+    });
+    //----------新增章节---------------
 });
 
+function loadCourseInForm() {
+    $.ajax({
+        url: "/Chapter/GetCourseInfo",
+        success: function (data) {
+            var result = data.rows;
+            $.each(result, function (i, v) {
+                $("#cName").append('<option value="' + v.cId + '">' + v.cName + '</option>');
+            });
+        }
+    });
+}
+function EditChapter(dom) {
+    $("#chapterEdit").css("display", "block");
+    $("#chapterAdd").css("display", "none");
+
+    var chId = $(dom).data("id"), mark = $(dom).data("mark"), cId = $(dom).data("cname"), chName = $(dom).data("chname");
+    $("#cName").val(cId).attr("disabled",true);
+    $("#chName").val(chName);
+    $("#mark").val(mark);
+    AlertCourseForm("新增章节", $("#form1"));
+
+    $("#chapterEdit").click(function () {
+        var parm = $("#form1").serialize();
+        ExcuteAjax("/Chapter/EditChapter", parm+"&chId="+chId);
+
+    });
+}
+//根据不同的接口进行课程的新增、修改操作
+function ExcuteAjax(url, parm) {
+    $.ajax({
+        url: url + "?" + parm,
+        success: function (data) {
+            if (data == "ok") {
+                layer.msg("操作成功！", { icon: 1, time: 800 });
+                $("#dataList").datagrid("reload");
+                chart("line");
+                layer.closeAll();
+                $("#form1 input").val("");
+            } else {
+                layer.msg("操作失败", { icon: 2, time: 800 });
+            }
+        }
+    });
+}
+function AlertCourseForm(title, container) {
+    layer.open({
+        type: 1,
+        shade: false,
+        title: title,
+        area: ["400px", "330px"],
+        content: container
+    });
+}
 
 /**
  * 删除指定章节
@@ -98,7 +184,7 @@ function initEchart(id, seriesData, xAxisData) {
         label: {
             normal: {
                 show: true,
-                formatter: '{b} 共 {c} 节',
+                formatter: '共 {c} 节',
                 position: 'top'
             }
         },
@@ -138,7 +224,9 @@ function initDataGrid(id) {
     /*初始化datagrid*/
     var optionSet = {
         striped: true,
+        title: "课程章节列表",
         fitColumns: true,
+        nowrap: false,
         rownumbers: true,
         border: true,
         editable: false,
@@ -157,8 +245,8 @@ function initDataGrid(id) {
             { field: 'starttime', title: '创建时间', width: 100 },
             {
                 field: 'manage', title: '更多操作', width: 100, formatter: function (index, row) {
-                    return '<a href="javascript:;" class="delUser text-danger" data-id="' + row.chId + '" data-cId="' + row.cid + '" onclick="DeleteChapter(this)">删除</a> /'
-                        + ' <a href="javascript:;" class="editUser" data-name="' + row.name + '" data-chIs="' + row.chId + '">编辑</a>';
+                    return '<a href="javascript:;" class="delUser text-danger" data-id="' + row.chId + '" data-cId="' + row.cId + '" onclick="DeleteChapter(this)">删除</a> /'
+                        + ' <a href="javascript:;" class="editUser" data-mark="'+row.mark+'" data-cname="'+row.cId+'" data-id="' + row.chId + '" data-chname="'+row.chName+'" onclick="EditChapter(this)">编辑</a>';
                 }
             }
 

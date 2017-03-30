@@ -31,15 +31,15 @@ namespace OnlineSourceManage.Controllers
         public ActionResult GetChapter()
         {
             List<Chapter> list = _bll.GetAllChapter();
-             var pageIndex = int.Parse(Request["page"]); //当前页  
+            var pageIndex = int.Parse(Request["page"]); //当前页  
             var pageSize = int.Parse(Request["rows"]); //页面行数 
             IEnumerable<Chapter> courseList = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return Json(new { total = list.Count, rows = courseList }, JsonRequestBehavior.AllowGet);
         }
 
-        public FileResult  OutToExcel()
+        public FileResult OutToExcel()
         {
-          //创建Excel文件的对象
+            //创建Excel文件的对象
             HSSFWorkbook book = new HSSFWorkbook();
 
             //添加一个sheet
@@ -58,7 +58,7 @@ namespace OnlineSourceManage.Controllers
             headerStyle.Alignment = HorizontalAlignment.Center; // 左右居中    
             headerStyle.VerticalAlignment = VerticalAlignment.Center; // 上下居中 
             // 设置单元格的背景颜色（单元格的样式会覆盖列或行的样式）    
-            headerStyle.FillForegroundColor = (short) 8;
+            headerStyle.FillForegroundColor = 8;
             //定义font
             IFont font = book.CreateFont();
             font.FontHeightInPoints = 35;
@@ -98,7 +98,7 @@ namespace OnlineSourceManage.Controllers
             book.Write(ms);
             ms.Seek(0, SeekOrigin.Begin);
             return File(ms, "application/vnd.ms-excel", "课程章节信息表.xls");
-        
+
         }
 
 
@@ -131,7 +131,50 @@ namespace OnlineSourceManage.Controllers
             var isok = _bll.DeleteChapter(chId);
             return Content(isok ? "ok" : "error");
         }
+        /// <summary>
+        /// 模糊查询
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public ActionResult SearchChapter(string keys)
+        {
+           List<Chapter> list = _bll.GetChapterBySearch(keys);
+           return Json(new { total = list.Count, rows = list }, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 获取课程信息
+        /// </summary>
+        /// <param name="cId"></param>
+        /// <returns></returns>
+        public ActionResult GetCourseInfo()
+        {
+            CourseBll bll = new CourseBll();
+            List<Course> list = bll.GetAllCourse(true);
+            return Json(new { total = list.Count, rows = list }, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 获取所有课程列表
+        /// </summary>
+        /// <param name="cId"></param>
+        /// <param name="chName"></param>
+        /// <param name="mark"></param>
+        /// <returns></returns>
+        public ActionResult AddChapter(int cId, string chName,string mark)
+        {
+            Chapter chapter = new Chapter()
+            {
+                cId = cId,
+                chName = chName,
+                mark = mark
+            };
+            var isok = _bll.AddChapter(chapter);
+            return Content(isok ? "ok" : "error");
+        }
 
-
+        public ActionResult EditChapter(int chId,string chName,string mark)
+        {
+           var isok = _bll.UpdateChapter(chId,chName,mark);
+           return Content(isok ? "ok" : "error");
+        }
     }
 }

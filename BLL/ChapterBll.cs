@@ -82,11 +82,12 @@ namespace BLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<Chapter> GetChapterById(int id)
+        public Chapter GetChapterById(int id)
         {
             DataTable dt = _dal.GetChapterById(id);
-            return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
+            return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList()[0];
         }
+
 
         /// <summary>
         /// 根据章节名称查找课程
@@ -100,6 +101,17 @@ namespace BLL
 
         }
         #endregion
+        /// <summary>
+        /// 修改章节信息
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <param name="chName"></param>
+        /// <param name="mark"></param>
+        /// <returns></returns>
+        public bool UpdateChapter(int chId,string chName,string mark)
+        {
+            return _dal.UpdateChapter(chId,chName,mark);
+        }
 
 
 

@@ -101,6 +101,9 @@ body
 .mt-5{
     margin-top: 5px;
 }
+.mt-10 {
+    margin-top: 10px;
+}
 .bd-0
 {
     border: none!important;
@@ -280,6 +283,8 @@ legend
     width: 100%;
     clear: both;
     overflow-x: hidden;
+    border: 1px solid #ccc;
+    padding-top: 3px;
 }
 
 .box-wrapper{

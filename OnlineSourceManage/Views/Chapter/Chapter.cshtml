@@ -24,17 +24,18 @@
             <div class="row bg-grey">
                 <div class="col-md-12">
                     <div class="form-wrapper " id="btn-wrapper">
-                        <span class="title">章节名称：</span>
+                        @*<span class="title">章节名称：</span>
                         <input type="text" class="form-control input-inline">
                         <span class="title">内容描述：</span>
                         <input type="text" class="form-control input-inline">
                         <span class="title">课程文件：</span>
-                        <input type="file" class="form-control input-inline">
+                        <input type="file" class="form-control input-inline">*@
 
                         <span class="title">模糊查询：</span>
-                        <input type="text" class="form-control input-inline">
+                        <input type="text" class="form-control input-inline" id="searchVal">
 
-                        <button class="btn btn-default vertical-top">确定</button>
+                        <button class="btn w-success btn-sm" id="searchBtn">确定</button>
+                        <button class="btn w-success btn-sm" id="addChapter">新增章节</button>
                         <a id="outport" class="btn w-success vertical-top pull-right" href="/Chapter/OutToExcel">导出</a>
                     </div>
                 </div>
@@ -48,7 +49,12 @@
                             <div id="bar" class="chart"></div>
                         </div>
                         <div class="dataList">
-                            <div id="dataList"></div>
+                            <div class="col-md-6" style="height: 100%;">
+                                <div id="dataList"></div>
+                            </div>
+                            <div class="col-md-6" style="height: 100%;">
+                                <div id="dataList1"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,6 +62,16 @@
         </div>
     </div>
 
+    <form id="form1" style="padding: 5px 15px" class="form-wrapper">
+        <span class="title">课程名称：</span>
+        <select name="cId" class="form-control" id="cName"></select>
+        <span class="title">章节名称：</span>
+        <input type="text" class="form-control" name="chName" id="chName">
+        <span class="title">章节描述：</span>
+        <input type="text" class="form-control" name="mark" id="mark">
+        <a class="btn btn-sm w-success btn-block" style="margin-top: 10px" id="chapterAdd">确定添加</a>
+        <a class="btn btn-sm w-success btn-block" style="margin-top: 10px" id="chapterEdit">确定编辑</a>
+    </form>
 </body>
 <script src="/Scripts/Js/common/jquery-1.10.1.js"></script>
 <script src="/Plugins/ztree/jquery.ztree.all.min.js"></script>

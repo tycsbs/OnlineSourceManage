@@ -73,7 +73,7 @@ namespace DAL
         /// <returns></returns>
         public DataTable GetChapterById(int id)
         {
-            string sql = string.Format("SELECT * FROM [dbo].[Chapter] WHERE chId = '{0}' AND  isDel = '0'", id);
+            string sql = string.Format("SELECT dbo.Course.cName,chName,chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.isDel,dbo.Chapter.mark,[types] FROM( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId) WHERE dbo.Course.isDel = '0' AND dbo.Chapter.isDel = '0' AND chId = '{0}' ORDER BY dbo.Chapter.cId", id);
             return SqlHelper.SqlDataTable(sql);
         }
 
@@ -84,11 +84,17 @@ namespace DAL
         /// <returns></returns>
         public DataTable GetChapterBySearch(string keys)
         {
-            string sql = string.Format("SELECT * FROM dbo.Chapter WHERE chName LIKE '%{0}%' AND isDel ='0'", keys);
+            string sql = string.Format("SELECT dbo.Course.cName,chName,chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.isDel,dbo.Chapter.mark,[types] FROM( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId) WHERE dbo.Course.cName LIKE '%{0}%' OR [types] LIKE '%{0}%' OR chId LIKE '%{0}%' AND  dbo.Course.isDel = '0' AND dbo.Chapter.isDel = '0' ORDER BY dbo.Chapter.cId", keys);
             return SqlHelper.SqlDataTable(sql);
 
         }
         #endregion
+
+        public bool UpdateChapter(int chId, string chName, string mark)
+        {
+            string sql = string.Format("UPDATE dbo.Chapter SET chName='{0}' ,mark='{1}'  WHERE chId = '{2}'",chName,mark,chId);
+            return SqlHelper.ExcuteNonQuery(sql) > 0;
+        }
 
     }
 }
