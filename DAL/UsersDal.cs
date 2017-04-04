@@ -82,8 +82,7 @@ namespace DAL
         {
             string sql = "SELECT * FROM [dbo].[User] WHERE isDel = '0' ORDER BY uId DESC";
             DataTable dt = SqlHelper.SqlDataTable(sql);
-
-
+           
             return (from DataRow dataRow in dt.Rows select DataRowToUser(dataRow)).ToList();
         }
 

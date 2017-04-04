@@ -36,6 +36,7 @@
 
                         <button class="btn w-success btn-sm" id="searchBtn">确定</button>
                         <button class="btn w-success btn-sm" id="addChapter">新增章节</button>
+                        <button class="btn w-success btn-sm" id="addFile">资源添加</button>
                         <a id="outport" class="btn w-success vertical-top pull-right" href="/Chapter/OutToExcel">导出</a>
                     </div>
                 </div>
@@ -46,15 +47,15 @@
                     <div class="grid-wrapper" id="content-filed">
                         <div class="chart-box">
                             <div id="line" class="chart"></div>
-                            <div id="bar" class="chart"></div>
+                            @*                            <div id="bar" class="chart"></div>*@
                         </div>
                         <div class="dataList">
-                            <div class="col-md-6" style="height: 100%;">
+                            <div class="col-md-12" style="height: 100%;">
                                 <div id="dataList"></div>
                             </div>
-                            <div class="col-md-6" style="height: 100%;">
-                                <div id="dataList1"></div>
-                            </div>
+                            @*                            <div class="col-md-6" style="height: 100%;">*@
+                            @*                                <div id="dataList1"></div>*@
+                            @*                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -72,12 +73,28 @@
         <a class="btn btn-sm w-success btn-block" style="margin-top: 10px" id="chapterAdd">确定添加</a>
         <a class="btn btn-sm w-success btn-block" style="margin-top: 10px" id="chapterEdit">确定编辑</a>
     </form>
+
+
+    <form id="form2" action="/Chapter/AddChapterFile" method="post" style="padding: 5px 15px" class="form-wrapper" enctype="multipart/form-data">
+
+        <span class="title">课程名称：</span>
+        <select name="cId" class="form-control" id="courses"></select>
+        <span class="title">课程名称：</span>
+        <select name="chId" class="form-control" id="chapters"></select>
+        <span class="title">资源文件：</span>
+        <input type="file" name="file" class="form-control" />
+        <input type="submit" value="提交文件" class="btn btn-sm w-success btn-block" style="margin-top: 10px" />
+
+    </form>
 </body>
 <script src="/Scripts/Js/common/jquery-1.10.1.js"></script>
-<script src="/Plugins/ztree/jquery.ztree.all.min.js"></script>
+
 <script src="/Plugins/echarts/echarts.min.js"></script>
+
 <script src="/Plugins/easyui/js/jquery.easyui.min.js"></script>
 <script src="/Plugins/easyui/js/easyui-lang-zh_CN.js"></script>
+
 <script src="/Plugins/layer/layer.js"></script>
+
 <script src="/Scripts/Js/chapterManage.js"></script>
 </html>

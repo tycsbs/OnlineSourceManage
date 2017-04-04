@@ -8,11 +8,12 @@
 $(function () {
 
     chart("line");
-    //chart("bar");
     //初始化数据列表容器高度
     initDataGridHeight(".dataList", 360);
     //初始化数据列表
     initDataGrid("#dataList");
+
+
     loadCourseInForm();
     //initDataGrid("#dataList1");
     //模糊查询
@@ -30,11 +31,11 @@ $(function () {
             layer.msg("查询不能为空");
         }
     });
-    //新增章节---------------
+    //--------新增章节---------------
     $("#addChapter").click(function () {
         $("#chapterEdit").css("display", "none");
         $("#chapterAdd").css("display", "block");
-        $("#cName").empty();
+        $("#form1 input").val("");
 
         loadCourseInForm();
         AlertCourseForm("新增章节", $("#form1"));
@@ -47,15 +48,40 @@ $(function () {
         
     });
     //----------新增章节---------------
+    //----------章节资源添加------------
+    $("#addFile").click(function () {
+        //弹出新增面板
+        AlertCourseForm("新增资源文件", $("#form2"));
+        //触发联动事件
+        $("#courses").change(function() {
+            var cid = $(this).children('option:selected').val();
+            loadChapterList(cid);
+        });
+    });
 });
 
+function loadChapterList(cid) {
+    $.ajax({
+        url: "/Chapter/GetChaptersById",
+        data:{cid:cid},
+        success: function (data) {
+            var result = data.rows;
+            $("#chapters").empty();
+            $.each(result, function (i, v) {
+                $("#chapters").append('<option value="' + v.chId + '">' + v.chName + '</option>');
+            });
+        }
+    });
+}
 function loadCourseInForm() {
     $.ajax({
         url: "/Chapter/GetCourseInfo",
         success: function (data) {
             var result = data.rows;
+            console.table(result);
             $.each(result, function (i, v) {
                 $("#cName").append('<option value="' + v.cId + '">' + v.cName + '</option>');
+                $("#courses").append('<option value="' + v.cId + '">' + v.cName + '</option>');
             });
         }
     });
@@ -243,6 +269,10 @@ function initDataGrid(id) {
             { field: 'mark', title: '章节描述', width: 100 },
             { field: 'types', title: '课程方向', width: 100 },
             { field: 'starttime', title: '创建时间', width: 100 },
+
+            { field: 'srcType', title: '文件类型', width: 100 },
+
+            { field: 'srcUrl', title: '文件路径', width: 100 },
             {
                 field: 'manage', title: '更多操作', width: 100, formatter: function (index, row) {
                     return '<a href="javascript:;" class="delUser text-danger" data-id="' + row.chId + '" data-cId="' + row.cId + '" onclick="DeleteChapter(this)">删除</a> /'

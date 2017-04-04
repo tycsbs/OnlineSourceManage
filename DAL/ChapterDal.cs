@@ -41,7 +41,7 @@ namespace DAL
         /// <returns></returns>
         public DataTable GetAllChapter()
         {
-            string sql = "SELECT dbo.Course.cName,chName,chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.isDel,dbo.Chapter.mark,[types] FROM( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId) WHERE dbo.Course.isDel = '0' AND dbo.Chapter.isDel = '0' ORDER BY dbo.Chapter.cId";
+            string sql = "SELECT dbo.Course.cName,dbo.Chapter.chName,dbo.Chapter.chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.mark, dbo.Chapter.isDel,[types] ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId LEFT JOIN dbo.chapter_resource ON dbo.Chapter.chId = dbo.chapter_resource.chId) WHERE dbo.Course.isDel = '0' ORDER BY dbo.Chapter.cId";
             return SqlHelper.SqlDataTable(sql);
         }
         /// <summary>
@@ -89,10 +89,28 @@ namespace DAL
 
         }
         #endregion
-
+        /// <summary>
+        /// 编辑章节信息
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <param name="chName"></param>
+        /// <param name="mark"></param>
+        /// <returns></returns>
         public bool UpdateChapter(int chId, string chName, string mark)
         {
             string sql = string.Format("UPDATE dbo.Chapter SET chName='{0}' ,mark='{1}'  WHERE chId = '{2}'",chName,mark,chId);
+            return SqlHelper.ExcuteNonQuery(sql) > 0;
+        }
+        /// <summary>
+        /// 添加文件信息
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <param name="filesUrl"></param>
+        /// <param name="filesType"></param>
+        /// <returns></returns>
+        public bool AddChapterFiles(int chId,string filesUrl,string filesType)
+        {
+            string sql = string.Format(" INSERT dbo.chapter_resource( chId ,srcUrl , srcType )VALUES  ( {0} ,N'{1}' ,N'{2}' )",chId,filesUrl,filesType);
             return SqlHelper.ExcuteNonQuery(sql) > 0;
         }
 

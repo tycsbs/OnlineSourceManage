@@ -70,11 +70,11 @@ namespace BLL
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public List<Chapter> GetChapterListById(int cid)
+        public List<chapterBase> GetChapterListById(int cid)
         {
             
             DataTable dt = _dal.GetChapterListById(cid);
-            return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
+            return (from DataRow dr in dt.Rows select DataRowToChapterBase(dr)).ToList();
         }
 
         /// <summary>
@@ -112,7 +112,17 @@ namespace BLL
         {
             return _dal.UpdateChapter(chId,chName,mark);
         }
-
+        /// <summary>
+        /// 添加文件信息
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <param name="filesUrl"></param>
+        /// <param name="filesType"></param>
+        /// <returns></returns>
+        public bool AddChapterFiles(int chId, string filesUrl, string filesType)
+        {
+            return _dal.AddChapterFiles(chId, filesUrl, filesType);
+        }
 
 
         #region 关系转对象
@@ -137,6 +147,16 @@ namespace BLL
                 {
                     model.cName = row["cName"].ToString();
                 }
+
+                if (row["srcType"] != null)
+                {
+                    model.srcType = row["srcType"].ToString();
+                }
+
+                if (row["srcUrl"] != null)
+                {
+                    model.srcUrl = row["srcUrl"].ToString();
+                }
                 if (row["starttime"] != null)
                 {
                     model.starttime = row["starttime"].ToString();
@@ -149,6 +169,41 @@ namespace BLL
                 {
                     model.types = row["types"].ToString();
                 }
+                if (row["isDel"] != null && row["isDel"].ToString() != "")
+                {
+                    model.isDel = int.Parse(row["isDel"].ToString());
+                }
+            }
+            return model;
+        }
+
+        public chapterBase DataRowToChapterBase(DataRow row)
+        {
+            chapterBase model = new chapterBase();
+            if (row != null)
+            {
+                if (row["chId"] != null && row["chId"].ToString() != "")
+                {
+                    model.chId = int.Parse(row["chId"].ToString());
+                }
+                if (row["cId"] != null && row["cId"].ToString() != "")
+                {
+                    model.cId = int.Parse(row["cId"].ToString());
+                }
+                if (row["chName"] != null)
+                {
+                    model.chName = row["chName"].ToString();
+                }
+               
+                if (row["starttime"] != null)
+                {
+                    model.starttime = row["starttime"].ToString();
+                }
+                if (row["mark"] != null)
+                {
+                    model.mark = row["mark"].ToString();
+                }
+               
                 if (row["isDel"] != null && row["isDel"].ToString() != "")
                 {
                     model.isDel = int.Parse(row["isDel"].ToString());

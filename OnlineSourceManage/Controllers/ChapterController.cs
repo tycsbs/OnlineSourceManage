@@ -138,13 +138,12 @@ namespace OnlineSourceManage.Controllers
         /// <returns></returns>
         public ActionResult SearchChapter(string keys)
         {
-           List<Chapter> list = _bll.GetChapterBySearch(keys);
-           return Json(new { total = list.Count, rows = list }, JsonRequestBehavior.AllowGet);
+            List<Chapter> list = _bll.GetChapterBySearch(keys);
+            return Json(new { total = list.Count, rows = list }, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// 获取课程信息
         /// </summary>
-        /// <param name="cId"></param>
         /// <returns></returns>
         public ActionResult GetCourseInfo()
         {
@@ -159,7 +158,7 @@ namespace OnlineSourceManage.Controllers
         /// <param name="chName"></param>
         /// <param name="mark"></param>
         /// <returns></returns>
-        public ActionResult AddChapter(int cId, string chName,string mark)
+        public ActionResult AddChapter(int cId, string chName, string mark)
         {
             Chapter chapter = new Chapter()
             {
@@ -170,11 +169,55 @@ namespace OnlineSourceManage.Controllers
             var isok = _bll.AddChapter(chapter);
             return Content(isok ? "ok" : "error");
         }
-
-        public ActionResult EditChapter(int chId,string chName,string mark)
+        /// <summary>
+        /// 章节信息编辑
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <param name="chName"></param>
+        /// <param name="mark"></param>
+        /// <returns></returns>
+        public ActionResult EditChapter(int chId, string chName, string mark)
         {
-           var isok = _bll.UpdateChapter(chId,chName,mark);
-           return Content(isok ? "ok" : "error");
+            var isok = _bll.UpdateChapter(chId, chName, mark);
+            return Content(isok ? "ok" : "error");
+        }
+        /// <summary>
+        /// 根据课程id 查找对应的章节
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public ActionResult GetChaptersById(int cid)
+        {
+            List<chapterBase> chapters = _bll.GetChapterListById(cid);
+            return Json(new { total = chapters.Count, rows = chapters }, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 文件上传
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="chId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AddChapterFile(HttpPostedFileBase file, int chId)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+            var fileType = Path.GetExtension(fileName);
+            var filePath = Path.Combine(Request.MapPath("/Files"), fileName);
+
+            try
+            {
+                file.SaveAs(filePath);
+                bool isok = _bll.AddChapterFiles(chId, filePath, fileType);
+                if (isok)
+                {
+                    return Redirect("ChapterPage");
+                }
+                return Content("上传失败");
+            }
+            catch
+            {
+                return Content("error", "text/plain");
+            }
         }
     }
 }

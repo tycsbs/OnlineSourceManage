@@ -12,6 +12,7 @@ namespace BLL
     public class UsersBll
     {
         private readonly UsersDal _dal = new UsersDal();
+        
 
         #region 新增用户
 
@@ -113,7 +114,7 @@ namespace BLL
         /// <returns>list</returns>
         public List<Users> GetAllUserList()
         {
-
+            
             return _dal.GetAllUserList();
         }
 
