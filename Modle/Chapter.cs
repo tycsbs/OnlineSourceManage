@@ -22,8 +22,6 @@ namespace Modle
         public string chName { set; get; }
 
         public string cName { set; get; }
-        public string srcType { set; get; }
-        public string srcUrl { set; get; }  
 
         public string types { set; get; }   
 

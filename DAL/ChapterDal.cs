@@ -32,6 +32,16 @@ namespace DAL
             string sql = String.Format("update [dbo].[Chapter] set isDel = 1 where chId = '{0}'", chId);
             return SqlHelper.ExcuteNonQuery(sql) > 0;
         }
+        /// <summary>
+        /// 删除指定章节的指定资源文件
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <returns></returns>
+        public bool DeleteFile(int chId)
+        {
+            string sql = String.Format("update [dbo].[chapter_resource] set isDel = 1 where chId = '{0}'", chId);
+            return SqlHelper.ExcuteNonQuery(sql) > 0;
+        }
         #endregion
 
         #region 查询章节内容
@@ -41,9 +51,17 @@ namespace DAL
         /// <returns></returns>
         public DataTable GetAllChapter()
         {
-            string sql = "SELECT dbo.Course.cName,dbo.Chapter.chName,dbo.Chapter.chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.mark, dbo.Chapter.isDel,[types] ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId LEFT JOIN dbo.chapter_resource ON dbo.Chapter.chId = dbo.chapter_resource.chId) WHERE dbo.Course.isDel = '0' ORDER BY dbo.Chapter.cId";
+            string sql = "SELECT dbo.Course.cName,dbo.Chapter.chName,dbo.Chapter.chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.mark, dbo.Chapter.isDel,[types] FROM ( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId) WHERE dbo.Course.isDel = '0' ORDER BY dbo.Chapter.cId";
             return SqlHelper.SqlDataTable(sql);
         }
+
+        public DataTable GetChapterFile()
+        {
+            string sql = "SELECT dbo.Chapter.chName,dbo.Chapter.chId,dbo.chapter_resource.starttime, dbo.chapter_resource.isDel ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.chapter_resource JOIN dbo.Chapter ON dbo.chapter_resource.chId = dbo.Chapter.chId) WHERE dbo.Chapter.isDel = '0' AND dbo.chapter_resource.isDel ORDER BY dbo.Chapter.cId";
+            return SqlHelper.SqlDataTable(sql);
+        }
+
+
         /// <summary>
         /// 统计章节信息
         /// </summary>

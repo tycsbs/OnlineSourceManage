@@ -46,9 +46,9 @@ namespace BLL
                 {
                     model.isDel = int.Parse(row["isDel"].ToString());
                 }
-                if (row["timeStamp"] != null)
+                if (row["starttime"] != null)
                 {
-                    model.timeStamp = row["timeStamp"].ToString();
+                    model.starttime = row["starttime"].ToString();
                 }
             }
             return model;

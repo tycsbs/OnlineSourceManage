@@ -34,6 +34,16 @@ namespace BLL
            
             return _dal.DeleteChapter(chId);
         }
+
+        /// <summary>
+        /// 删除指定章节的指定资源文件
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <returns></returns>
+        public bool DeleteFile(int chId)
+        {
+            return _dal.DeleteChapter(chId);
+        }
         #endregion
 
         #region 查询章节内容
@@ -46,6 +56,15 @@ namespace BLL
 
             DataTable dt = _dal.GetAllChapter();
             return (from DataRow dr in dt.Rows select DataRowToModel(dr)).ToList();
+        }
+        /// <summary>
+        /// 获取章节资源信息
+        /// </summary>
+        /// <returns></returns>
+        public List<ChapterSource> GetChapterFile()
+        {
+            DataTable dt = _dal.GetChapterFile();
+            return (from DataRow dr in dt.Rows select DataRowToFile(dr)).ToList();
         }
 
         public DataTable GetChapterlist()   
@@ -147,16 +166,6 @@ namespace BLL
                 {
                     model.cName = row["cName"].ToString();
                 }
-
-                if (row["srcType"] != null)
-                {
-                    model.srcType = row["srcType"].ToString();
-                }
-
-                if (row["srcUrl"] != null)
-                {
-                    model.srcUrl = row["srcUrl"].ToString();
-                }
                 if (row["starttime"] != null)
                 {
                     model.starttime = row["starttime"].ToString();
@@ -172,6 +181,39 @@ namespace BLL
                 if (row["isDel"] != null && row["isDel"].ToString() != "")
                 {
                     model.isDel = int.Parse(row["isDel"].ToString());
+                }
+            }
+            return model;
+        }
+
+        public ChapterSource DataRowToFile(DataRow row)
+        {
+            ChapterSource model = new ChapterSource();
+            if (row != null)    
+            {
+                if (row["chId"] != null && row["chId"].ToString() != "")
+                {
+                    model.chId = int.Parse(row["chId"].ToString());
+                }
+                if (row["chName"] != null)
+                {
+                    model.chName = row["chName"].ToString();
+                }
+                if (row["srcUrl"] != null)
+                {
+                    model.srcUrl = row["srcUrl"].ToString();
+                }
+                if (row["srcType"] != null)
+                {
+                    model.srcType = row["srcType"].ToString();
+                }
+                if (row["isDel"] != null && row["isDel"].ToString() != "")
+                {
+                    model.isDel = int.Parse(row["isDel"].ToString());
+                }
+                if (row["starttime"] != null)
+                {
+                    model.starttime = row["starttime"].ToString();
                 }
             }
             return model;

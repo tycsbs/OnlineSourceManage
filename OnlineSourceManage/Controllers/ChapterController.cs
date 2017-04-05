@@ -36,6 +36,21 @@ namespace OnlineSourceManage.Controllers
             IEnumerable<Chapter> courseList = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return Json(new { total = list.Count, rows = courseList }, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// 获取所有课程的所有章节
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetChapterFile()
+        {
+            List<ChapterSource> list = _bll.GetChapterFile();
+            var pageIndex = int.Parse(Request["page"]); //当前页  
+            var pageSize = int.Parse(Request["rows"]); //页面行数 
+            IEnumerable<ChapterSource> courseList = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new { total = list.Count, rows = courseList }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
 
         public FileResult OutToExcel()
         {
@@ -100,7 +115,6 @@ namespace OnlineSourceManage.Controllers
             return File(ms, "application/vnd.ms-excel", "课程章节信息表.xls");
 
         }
-
 
         /// <summary>
         /// 获取章节的统计信息
@@ -200,24 +214,37 @@ namespace OnlineSourceManage.Controllers
         [HttpPost]
         public ActionResult AddChapterFile(HttpPostedFileBase file, int chId)
         {
-            var fileName = Path.GetFileName(file.FileName);
-            var fileType = Path.GetExtension(fileName);
-            var filePath = Path.Combine(Request.MapPath("/Files"), fileName);
-
-            try
+            Random random = new Random();
+            var r = random.Next(1000, 100000).ToString();
+            var fileName = r + Path.GetFileName(file.FileName);
+            var fileType = Path.GetExtension(fileName).Substring(1).ToUpper();
             {
-                file.SaveAs(filePath);
-                bool isok = _bll.AddChapterFiles(chId, filePath, fileType);
-                if (isok)
+                var filePath = Path.Combine(Request.MapPath("~/Files"), fileName);
+                try
                 {
-                    return Redirect("ChapterPage");
+                    file.SaveAs(filePath);
+                    bool isok = _bll.AddChapterFiles(chId, filePath.Substring(filePath.LastIndexOf("/Files", StringComparison.Ordinal)), fileType);
+                    if (isok)
+                    {
+                        return Redirect("ChapterPage");
+                    }
+                    return Content("上传失败");
                 }
-                return Content("上传失败");
+                catch
+                {
+                    return Content("error", "text/plain");
+                }
             }
-            catch
-            {
-                return Content("error", "text/plain");
-            }
+        }
+        /// <summary>
+        /// 删除指定资源文件
+        /// </summary>
+        /// <param name="chId"></param>
+        /// <returns></returns>
+        public ActionResult DeleteFile(int chId)
+        {
+           var isok = _bll.DeleteFile(chId);
+           return Content(isok ? "ok" : "error");
         }
     }
 }

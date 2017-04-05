@@ -11,8 +11,8 @@ $(function () {
     //初始化数据列表容器高度
     initDataGridHeight(".dataList", 360);
     //初始化数据列表
-    initDataGrid("#dataList");
-
+    initDataGrid("#dataList", "/Chapter/GetChapter", column_chapter);
+    initDataGrid("#dataList", "/Chapter/GetChapterFile", column_file);
 
     loadCourseInForm();
     //initDataGrid("#dataList1");
@@ -42,28 +42,35 @@ $(function () {
         $("#cName").attr("disabled", false);
     });
     $("#chapterAdd").click(function () {
-       
+
         var parm = $("#form1").serialize();
         ExcuteAjax("/Chapter/AddChapter", parm);
-        
+
     });
     //----------新增章节---------------
+
+
     //----------章节资源添加------------
     $("#addFile").click(function () {
         //弹出新增面板
         AlertCourseForm("新增资源文件", $("#form2"));
         //触发联动事件
-        $("#courses").change(function() {
+        $("#courses").change(function () {
             var cid = $(this).children('option:selected').val();
             loadChapterList(cid);
         });
     });
 });
 
+/**
+ * 新增资源面板 加载指定课程的所有章节
+ * @param {} cid 课程id
+ * @returns {} 
+ */
 function loadChapterList(cid) {
     $.ajax({
         url: "/Chapter/GetChaptersById",
-        data:{cid:cid},
+        data: { cid: cid },
         success: function (data) {
             var result = data.rows;
             $("#chapters").empty();
@@ -86,20 +93,24 @@ function loadCourseInForm() {
         }
     });
 }
+/**
+ * 编辑章节信息面板
+ * @param {} dom 
+ * @returns {} 
+ */
 function EditChapter(dom) {
     $("#chapterEdit").css("display", "block");
     $("#chapterAdd").css("display", "none");
 
     var chId = $(dom).data("id"), mark = $(dom).data("mark"), cId = $(dom).data("cname"), chName = $(dom).data("chname");
-    $("#cName").val(cId).attr("disabled",true);
+    $("#cName").val(cId).attr("disabled", true);
     $("#chName").val(chName);
     $("#mark").val(mark);
     AlertCourseForm("新增章节", $("#form1"));
 
     $("#chapterEdit").click(function () {
         var parm = $("#form1").serialize();
-        ExcuteAjax("/Chapter/EditChapter", parm+"&chId="+chId);
-
+        ExcuteAjax("/Chapter/EditChapter", parm + "&chId=" + chId);
     });
 }
 //根据不同的接口进行课程的新增、修改操作
@@ -152,6 +163,25 @@ function DeleteChapter(that) {
             });
         });
 
+}
+
+
+function DeleteFile(chid) {
+    layer.confirm("确定删除该资源？",
+       function () {
+           $.ajax({
+               url: "/Chapter/DeleteFile",
+               data: { chId: chid },
+               success: function (msg) {
+                   if (msg == "ok") {
+                       layer.msg("删除成功！", { icon: 1 });
+                   } else {
+                       layer.msg("删除失败！", { icon: 3 });
+                   }
+                   $("#fileList").datagrid("reload");
+               }
+           });
+       });
 }
 
 /**
@@ -246,11 +276,61 @@ function initEchart(id, seriesData, xAxisData) {
  * 初始化数据列表
  * @param id 容器id
  */
-function initDataGrid(id) {
+var column_chapter = {
+    columns: [
+        [
+            { field: 'cName', title: '课程名称', width: 100 },
+            { field: 'chName', title: '章节名称', width: 100 },
+            { field: 'mark', title: '章节描述', width: 100 },
+            { field: 'types', title: '课程方向', width: 100 },
+            { field: 'starttime', title: '创建时间', width: 100 },
+            {
+                field: 'manage',
+                title: '更多操作',
+                width: 100,
+                formatter: function (index, row) {
+                    return '<a href="javascript:;" class="delUser text-danger" data-id="' +
+                        row.chId +
+                        '" data-cId="' +
+                        row.cId +
+                        '" onclick="DeleteChapter(this)">删除</a> /' +
+                        ' <a href="javascript:;" class="editUser" data-mark="' +
+                        row.mark +
+                        '" data-cname="' +
+                        row.cId +
+                        '" data-id="' +
+                        row.chId +
+                        '" data-chname="' +
+                        row.chName +
+                        '" onclick="EditChapter(this)">编辑</a>';
+                }
+            }
+        ]
+    ]
+};
+var column_file = {
+    columns: [
+        [
+            { field: 'cName', title: '课程名称', width: 100 },
+            { field: 'chName', title: '章节名称', width: 100 },
+            { field: 'srcType', title: '文件类型', width: 100 },
+            { field: 'srcUrl', title: '文件路径', width: 100 },
+            { field: 'starttime', title: '创建时间', width: 160 },
+            {
+                field: 'manage',
+                title: '更多操作',
+                width: 100,
+                formatter: function (index, row) {
+                    return '<a href="javascript:;" class="delUser text-danger" onclick="DeleteFile(' + row.chId + ')">删除</a> /';
+                }
+            }
+        ]
+    ]
+};
+function initDataGrid(id,url, columns) {
     /*初始化datagrid*/
     var optionSet = {
         striped: true,
-        title: "课程章节列表",
         fitColumns: true,
         nowrap: false,
         rownumbers: true,
@@ -261,29 +341,13 @@ function initDataGrid(id) {
         pagination: true,
         pageSize: 5,
         pageList: [5, 10, 15, 25],
-        url: "/Chapter/GetChapter",
-        fit: true,
-        columns: [[
-            { field: 'cName', title: '课程名称', width: 100 },
-            { field: 'chName', title: '章节名称', width: 100 },
-            { field: 'mark', title: '章节描述', width: 100 },
-            { field: 'types', title: '课程方向', width: 100 },
-            { field: 'starttime', title: '创建时间', width: 100 },
-
-            { field: 'srcType', title: '文件类型', width: 100 },
-
-            { field: 'srcUrl', title: '文件路径', width: 100 },
-            {
-                field: 'manage', title: '更多操作', width: 100, formatter: function (index, row) {
-                    return '<a href="javascript:;" class="delUser text-danger" data-id="' + row.chId + '" data-cId="' + row.cId + '" onclick="DeleteChapter(this)">删除</a> /'
-                        + ' <a href="javascript:;" class="editUser" data-mark="'+row.mark+'" data-cname="'+row.cId+'" data-id="' + row.chId + '" data-chname="'+row.chName+'" onclick="EditChapter(this)">编辑</a>';
-                }
-            }
-
-        ]]
+        url:url,
+        fit: true
     };
-    $(id).datagrid(optionSet);
+    var option = $.extend({}, optionSet, columns);
+    $(id).datagrid(option);
 }
+
 
 /**
  * 初始化容器高度
