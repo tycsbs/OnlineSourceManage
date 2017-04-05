@@ -14,9 +14,10 @@ namespace Modle
             isDel = 0;
         }
 
-        public string starttime { set; get; }   
+        public string timeStamp { set; get; }       
       
         public int chId { set; get; }
+        public int id { set; get; } 
 
         public string chName { set; get; }
 

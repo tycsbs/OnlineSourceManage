@@ -24,12 +24,7 @@
             <div class="row bg-grey">
                 <div class="col-md-12">
                     <div class="form-wrapper " id="btn-wrapper">
-                        @*<span class="title">章节名称：</span>
-                        <input type="text" class="form-control input-inline">
-                        <span class="title">内容描述：</span>
-                        <input type="text" class="form-control input-inline">
-                        <span class="title">课程文件：</span>
-                        <input type="file" class="form-control input-inline">*@
+                       
 
                         <span class="title">模糊查询：</span>
                         <input type="text" class="form-control input-inline" id="searchVal">
@@ -37,7 +32,7 @@
                         <button class="btn w-success btn-sm" id="searchBtn">确定</button>
                         <button class="btn w-success btn-sm" id="addChapter">新增章节</button>
                         <button class="btn w-success btn-sm" id="addFile">资源添加</button>
-                        <a id="outport" class="btn w-success vertical-top pull-right" href="/Chapter/OutToExcel">导出</a>
+                        <a id="outport" class="btn w-success vertical-top pull-right" href="/Chapter/OutToExcel">导出Excel</a>
                     </div>
                 </div>
             </div>
@@ -50,10 +45,10 @@
                             @*                            <div id="bar" class="chart"></div>*@
                         </div>
                         <div class="dataList">
-                            <div class="col-md-8" style="height: 100%;">
+                            <div class="col-md-6" style="height: 100%;">
                                 <div id="dataList"></div>
                             </div>
-                            <div class="col-md-4" style="height: 100%;">
+                            <div class="col-md-6" style="height: 100%;">
                                 <div id="fileList"></div>
                             </div>
                         </div>

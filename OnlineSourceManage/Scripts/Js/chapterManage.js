@@ -12,7 +12,7 @@ $(function () {
     initDataGridHeight(".dataList", 360);
     //初始化数据列表
     initDataGrid("#dataList", "/Chapter/GetChapter", column_chapter);
-    initDataGrid("#dataList", "/Chapter/GetChapterFile", column_file);
+    initDataGrid("#fileList", "/Chapter/GetChapterFile", column_file);
 
     loadCourseInForm();
     //initDataGrid("#dataList1");
@@ -166,12 +166,12 @@ function DeleteChapter(that) {
 }
 
 
-function DeleteFile(chid) {
+function DeleteFile(id) {
     layer.confirm("确定删除该资源？",
        function () {
            $.ajax({
                url: "/Chapter/DeleteFile",
-               data: { chId: chid },
+               data: { id: id },
                success: function (msg) {
                    if (msg == "ok") {
                        layer.msg("删除成功！", { icon: 1 });
@@ -311,17 +311,15 @@ var column_chapter = {
 var column_file = {
     columns: [
         [
-            { field: 'cName', title: '课程名称', width: 100 },
             { field: 'chName', title: '章节名称', width: 100 },
-            { field: 'srcType', title: '文件类型', width: 100 },
-            { field: 'srcUrl', title: '文件路径', width: 100 },
-            { field: 'starttime', title: '创建时间', width: 160 },
+            { field: 'srcType', title: '文件类型', width: 50 },
+            { field: 'srcUrl', title: '文件路径', width: 180 },
             {
                 field: 'manage',
                 title: '更多操作',
-                width: 100,
+                width: 40,
                 formatter: function (index, row) {
-                    return '<a href="javascript:;" class="delUser text-danger" onclick="DeleteFile(' + row.chId + ')">删除</a> /';
+                    return '<a href="javascript:;" class="delUser text-danger" onclick="DeleteFile(' + row.id + ')">删除</a>';
                 }
             }
         ]
@@ -332,7 +330,6 @@ function initDataGrid(id,url, columns) {
     var optionSet = {
         striped: true,
         fitColumns: true,
-        nowrap: false,
         rownumbers: true,
         border: true,
         editable: false,

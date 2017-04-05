@@ -51,7 +51,10 @@ namespace OnlineSourceManage.Controllers
 
 
 
-
+        /// <summary>
+        /// NPOI excel 导出
+        /// </summary>
+        /// <returns></returns>
         public FileResult OutToExcel()
         {
             //创建Excel文件的对象
@@ -60,7 +63,7 @@ namespace OnlineSourceManage.Controllers
             //添加一个sheet
             ISheet sheet1 = book.CreateSheet("Sheet1");
 
-            //获取Users数据
+            //获取chapter数据
             DataTable dt = _bll.GetChapterlist();
             //给sheet1添加第一行的头部标题
 
@@ -89,7 +92,7 @@ namespace OnlineSourceManage.Controllers
 
 
             //将数据逐步写入sheet1各个行
-            string[] columnName = { "课程名称", "章节名称", "课程编号", "章节编号", "创建时间", "删除", "描述信息", "课程类型" };
+            string[] columnName = { "课程名称", "章节名称", "课程编号", "章节编号", "创建时间", "描述信息", "删除", "课程类型" };
             for (int i = 0; i < dt.Columns.Count; i++)
             {
                 ICell cell = row1.CreateCell(i);
@@ -215,15 +218,16 @@ namespace OnlineSourceManage.Controllers
         public ActionResult AddChapterFile(HttpPostedFileBase file, int chId)
         {
             Random random = new Random();
-            var r = random.Next(1000, 100000).ToString();
+            var r = DateTime.Now.ToFileTimeUtc().ToString();
             var fileName = r + Path.GetFileName(file.FileName);
             var fileType = Path.GetExtension(fileName).Substring(1).ToUpper();
             {
-                var filePath = Path.Combine(Request.MapPath("~/Files"), fileName);
+                var filePath = Path.Combine(Request.MapPath(@"~/Files"), fileName);
+                var s = filePath.Substring(filePath.LastIndexOf("Files") + 0);
                 try
                 {
                     file.SaveAs(filePath);
-                    bool isok = _bll.AddChapterFiles(chId, filePath.Substring(filePath.LastIndexOf("/Files", StringComparison.Ordinal)), fileType);
+                    bool isok = _bll.AddChapterFiles(chId, s, fileType);
                     if (isok)
                     {
                         return Redirect("ChapterPage");
@@ -241,10 +245,10 @@ namespace OnlineSourceManage.Controllers
         /// </summary>
         /// <param name="chId"></param>
         /// <returns></returns>
-        public ActionResult DeleteFile(int chId)
+        public ActionResult DeleteFile(int id)
         {
-           var isok = _bll.DeleteFile(chId);
-           return Content(isok ? "ok" : "error");
+            var isok = _bll.DeleteFile(id);
+            return Content(isok ? "ok" : "error");
         }
     }
 }

@@ -37,9 +37,9 @@ namespace DAL
         /// </summary>
         /// <param name="chId"></param>
         /// <returns></returns>
-        public bool DeleteFile(int chId)
+        public bool DeleteFile(int id)
         {
-            string sql = String.Format("update [dbo].[chapter_resource] set isDel = 1 where chId = '{0}'", chId);
+            string sql = String.Format("update [dbo].[chapter_resource] set isDel = 1 where id = '{0}'", id);
             return SqlHelper.ExcuteNonQuery(sql) > 0;
         }
         #endregion
@@ -51,13 +51,13 @@ namespace DAL
         /// <returns></returns>
         public DataTable GetAllChapter()
         {
-            string sql = "SELECT dbo.Course.cName,dbo.Chapter.chName,dbo.Chapter.chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.mark, dbo.Chapter.isDel,[types] FROM ( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId) WHERE dbo.Course.isDel = '0' ORDER BY dbo.Chapter.cId";
+            string sql = "SELECT dbo.Course.cName,dbo.Chapter.chName,dbo.Chapter.chId,dbo.Chapter.cId,dbo.Chapter.starttime,dbo.Chapter.mark, dbo.Chapter.isDel,[types] FROM ( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId) WHERE dbo.Course.isDel = '0' AND dbo.Chapter.isDel = '0' ORDER BY dbo.Chapter.cId";
             return SqlHelper.SqlDataTable(sql);
         }
 
         public DataTable GetChapterFile()
         {
-            string sql = "SELECT dbo.Chapter.chName,dbo.Chapter.chId,dbo.chapter_resource.starttime, dbo.chapter_resource.isDel ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.chapter_resource JOIN dbo.Chapter ON dbo.chapter_resource.chId = dbo.Chapter.chId) WHERE dbo.Chapter.isDel = '0' AND dbo.chapter_resource.isDel ORDER BY dbo.Chapter.cId";
+            string sql = "SELECT dbo.Chapter.chName,dbo.Chapter.chId,dbo.chapter_resource.id,dbo.chapter_resource.timeStamp, dbo.chapter_resource.isDel ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.chapter_resource JOIN dbo.Chapter ON dbo.chapter_resource.chId = dbo.Chapter.chId) WHERE dbo.Chapter.isDel = '0' AND dbo.chapter_resource.isDel = '0' ORDER BY dbo.Chapter.cId";
             return SqlHelper.SqlDataTable(sql);
         }
 

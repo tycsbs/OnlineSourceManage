@@ -7,8 +7,11 @@ $(function () {
     // 初始化tab
     initTab("#btn-wrapper");
     // 初始化iframe区域的宽高度
-    initFrameHeight("#content-filed", 135);
+    initFrameHeight("#content-filed", 95);
 });
+
+
+
 
 /**
  * 按钮active效果切换

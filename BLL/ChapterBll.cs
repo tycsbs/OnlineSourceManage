@@ -40,9 +40,9 @@ namespace BLL
         /// </summary>
         /// <param name="chId"></param>
         /// <returns></returns>
-        public bool DeleteFile(int chId)
+        public bool DeleteFile(int id)
         {
-            return _dal.DeleteChapter(chId);
+            return _dal.DeleteFile(id);
         }
         #endregion
 
@@ -195,6 +195,10 @@ namespace BLL
                 {
                     model.chId = int.Parse(row["chId"].ToString());
                 }
+                if (row["id"] != null && row["id"].ToString() != "")
+                {
+                    model.id = int.Parse(row["id"].ToString());
+                }
                 if (row["chName"] != null)
                 {
                     model.chName = row["chName"].ToString();
@@ -211,9 +215,9 @@ namespace BLL
                 {
                     model.isDel = int.Parse(row["isDel"].ToString());
                 }
-                if (row["starttime"] != null)
+                if (row["timeStamp"] != null)
                 {
-                    model.starttime = row["starttime"].ToString();
+                    model.timeStamp = row["timeStamp"].ToString();
                 }
             }
             return model;
