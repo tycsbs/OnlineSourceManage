@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ChapterController.cs" />
+    <Compile Include="Controllers\client\ClientIndexController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HandsonController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
@@ -134,12 +135,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="Content\handsontable\handsontable.css" />
-    <Content Include="Content\handsontable\handsontable.full.css" />
-    <Content Include="Content\handsontable\handsontable.full.min.css" />
-    <Content Include="Content\handsontable\handsontable.min.css" />
     <Content Include="Css\eduOnline.css" />
+    <Content Include="Css\globel.css" />
     <Content Include="Css\handsontable.css" />
+    <Content Include="Css\handsontable.full.css" />
+    <Content Include="Css\SourceManage.css" />
     <Content Include="Global.asax" />
     <Content Include="Html\adminIndex.html" />
     <Content Include="Html\chapterManage.html" />
@@ -147,22 +147,19 @@
     <Content Include="Html\layerHistory.html" />
     <Content Include="Html\layerUser.html" />
     <Content Include="Html\subjectManage.html" />
-    <Content Include="Html\test.jpg" />
     <Content Include="Html\UserManage.html" />
     <Content Include="Images\bg-header.png" />
     <Content Include="Scripts\Js\adminIndex.js" />
     <Content Include="Scripts\Js\chapterManage.js" />
+    <Content Include="Scripts\Js\clientIndex.js" />
     <Content Include="Scripts\Js\common\globel.js" />
     <Content Include="Scripts\Js\common\jquery-1.10.1.js" />
     <Content Include="Scripts\Js\common\modernizr.js" />
     <Content Include="Scripts\Js\course.js" />
+    <Content Include="Scripts\Js\index.html" />
     <Content Include="Scripts\Js\subjectManage.js" />
     <Content Include="Scripts\Js\UserManage.js" />
-    <Content Include="Plugins\bootstrap\css\bootstrap-material-design.css" />
-    <Content Include="Plugins\bootstrap\css\bootstrap-theme.min.css" />
-    <Content Include="Plugins\bootstrap\css\bootstrap.min.css" />
     <Content Include="Plugins\bootstrap\css\bootstrapnot.min.css" />
-    <Content Include="Plugins\bootstrap\css\ripples.min.css" />
     <Content Include="Plugins\bootstrap\js\bootstrap.min.js" />
     <Content Include="Plugins\bootstrap\js\material.min.js" />
     <Content Include="Plugins\bootstrap\js\ripples.min.js" />
@@ -206,39 +203,6 @@
     <Content Include="Plugins\layer\skin\default\loading-0.gif" />
     <Content Include="Plugins\layer\skin\default\loading-1.gif" />
     <Content Include="Plugins\layer\skin\default\loading-2.gif" />
-    <Content Include="Plugins\WdatePicker\calendar.js" />
-    <Content Include="Plugins\WdatePicker\lang\en.js" />
-    <Content Include="Plugins\WdatePicker\lang\zh-cn.js" />
-    <Content Include="Plugins\WdatePicker\lang\zh-tw.js" />
-    <Content Include="Plugins\WdatePicker\skin\datePicker.gif" />
-    <Content Include="Plugins\WdatePicker\skin\default\datepicker.css" />
-    <Content Include="Plugins\WdatePicker\skin\default\img.gif" />
-    <Content Include="Plugins\WdatePicker\skin\WdatePicker.css" />
-    <Content Include="Plugins\WdatePicker\skin\whyGreen\bg.jpg" />
-    <Content Include="Plugins\WdatePicker\skin\whyGreen\datepicker.css" />
-    <Content Include="Plugins\WdatePicker\skin\whyGreen\img.gif" />
-    <Content Include="Plugins\WdatePicker\WdatePicker.js" />
-    <Content Include="Plugins\ztree\img\diy\1_close.png" />
-    <Content Include="Plugins\ztree\img\diy\1_open.png" />
-    <Content Include="Plugins\ztree\img\diy\2.png" />
-    <Content Include="Plugins\ztree\img\diy\3.png" />
-    <Content Include="Plugins\ztree\img\diy\4.png" />
-    <Content Include="Plugins\ztree\img\diy\5.png" />
-    <Content Include="Plugins\ztree\img\diy\6.png" />
-    <Content Include="Plugins\ztree\img\diy\7.png" />
-    <Content Include="Plugins\ztree\img\diy\8.png" />
-    <Content Include="Plugins\ztree\img\diy\9.png" />
-    <Content Include="Plugins\ztree\img\line_conn.gif" />
-    <Content Include="Plugins\ztree\img\loading.gif" />
-    <Content Include="Plugins\ztree\img\zTreeStandard.gif" />
-    <Content Include="Plugins\ztree\img\zTreeStandard.png" />
-    <Content Include="Plugins\ztree\img\zTreeStandard2.gif" />
-    <Content Include="Plugins\ztree\img\zTreeStandard2.png" />
-    <Content Include="Plugins\ztree\jquery.ztree.all.min.js" />
-    <Content Include="Plugins\ztree\jquery.ztree.core.min.js" />
-    <Content Include="Plugins\ztree\jquery.ztree.excheck.min.js" />
-    <Content Include="Plugins\ztree\jquery.ztree.exedit.min.js" />
-    <Content Include="Plugins\ztree\zTreeStyle.css" />
     <Content Include="Scripts\handsontable\handsontable.full.js" />
     <Content Include="Scripts\handsontable\handsontable.full.min.js" />
     <Content Include="Scripts\handsontable\handsontable.js" />
@@ -254,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\" />
     <Folder Include="Files\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -303,6 +268,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Chapter\Chapter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ClientIndex\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
