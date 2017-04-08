@@ -57,7 +57,13 @@ namespace DAL
 
         public DataTable GetChapterFile()
         {
-            string sql = "SELECT dbo.Chapter.chName,dbo.Chapter.chId,dbo.chapter_resource.id,dbo.chapter_resource.timeStamp, dbo.chapter_resource.isDel ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.chapter_resource JOIN dbo.Chapter ON dbo.chapter_resource.chId = dbo.Chapter.chId) WHERE dbo.Chapter.isDel = '0' AND dbo.chapter_resource.isDel = '0' ORDER BY dbo.Chapter.cId";
+            string sql = "SELECT dbo.Chapter.chName,dbo.Chapter.chId,dbo.chapter_resource.id,dbo.chapter_resource.timeStamp, dbo.chapter_resource.fileDesc,dbo.chapter_resource.isDel ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.chapter_resource JOIN dbo.Chapter ON dbo.chapter_resource.chId = dbo.Chapter.chId) WHERE dbo.Chapter.isDel = '0' AND dbo.chapter_resource.isDel = '0' ORDER BY dbo.chapter_resource.id DESC";
+            return SqlHelper.SqlDataTable(sql);
+        }
+
+        public DataTable GetChapterFileById(int chid)
+        {
+            string sql = string.Format("SELECT dbo.Chapter.chName,dbo.chapter_resource.chId ,dbo.chapter_resource.id,dbo.chapter_resource.timeStamp, dbo.chapter_resource.fileDesc,dbo.chapter_resource.isDel ,dbo.chapter_resource.srcType,dbo.chapter_resource.srcUrl FROM( dbo.chapter_resource JOIN dbo.Chapter ON dbo.chapter_resource.chId = dbo.Chapter.chId) WHERE dbo.Chapter.isDel = '0' AND dbo.chapter_resource.isDel = '0' AND dbo.chapter_resource.chId = '{0}'", chid);
             return SqlHelper.SqlDataTable(sql);
         }
 
@@ -66,7 +72,7 @@ namespace DAL
         /// 统计章节信息
         /// </summary>
         /// <returns></returns>
-        public DataTable GetChapterForChart()   
+        public DataTable GetChapterForChart()
         {
             string sql = "SELECT dbo.Course.cName,COUNT(0) AS num FROM ( dbo.Course JOIN dbo.Chapter ON dbo.Course.cId = dbo.Chapter.cId)WHERE dbo.Course.isDel = '0' GROUP BY cName";
             return SqlHelper.SqlDataTable(sql);
@@ -116,7 +122,7 @@ namespace DAL
         /// <returns></returns>
         public bool UpdateChapter(int chId, string chName, string mark)
         {
-            string sql = string.Format("UPDATE dbo.Chapter SET chName='{0}' ,mark='{1}'  WHERE chId = '{2}'",chName,mark,chId);
+            string sql = string.Format("UPDATE dbo.Chapter SET chName='{0}' ,mark='{1}'  WHERE chId = '{2}'", chName, mark, chId);
             return SqlHelper.ExcuteNonQuery(sql) > 0;
         }
         /// <summary>
@@ -125,10 +131,11 @@ namespace DAL
         /// <param name="chId"></param>
         /// <param name="filesUrl"></param>
         /// <param name="filesType"></param>
+        /// /// <param name="fileDesc"></param>
         /// <returns></returns>
-        public bool AddChapterFiles(int chId,string filesUrl,string filesType)
+        public bool AddChapterFiles(int chId, string filesUrl, string filesType, string fileDesc)
         {
-            string sql = string.Format(" INSERT dbo.chapter_resource( chId ,srcUrl , srcType )VALUES  ( {0} ,N'{1}' ,N'{2}' )",chId,filesUrl,filesType);
+            string sql = string.Format(" INSERT dbo.chapter_resource( chId ,srcUrl , srcType ,fileDesc)VALUES  ( {0} ,N'{1}' ,N'{2}' ,N'{3}')", chId, filesUrl, filesType, fileDesc);
             return SqlHelper.ExcuteNonQuery(sql) > 0;
         }
 

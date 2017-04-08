@@ -1,10 +1,6 @@
 /**
  * Created by DELL on 2017/2/10.
  */
-
-
-
-
 $(function () {
 
     chart("line");
@@ -85,7 +81,8 @@ function loadCourseInForm() {
         url: "/Chapter/GetCourseInfo",
         success: function (data) {
             var result = data.rows;
-            console.table(result);
+            $("#cName").empty();
+            $("#courses").empty();
             $.each(result, function (i, v) {
                 $("#cName").append('<option value="' + v.cId + '">' + v.cName + '</option>');
                 $("#courses").append('<option value="' + v.cId + '">' + v.cName + '</option>');

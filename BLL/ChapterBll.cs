@@ -66,6 +66,16 @@ namespace BLL
             DataTable dt = _dal.GetChapterFile();
             return (from DataRow dr in dt.Rows select DataRowToFile(dr)).ToList();
         }
+        /// <summary>
+        /// 根据章节id 查找对应的相关文件信息
+        /// </summary>
+        /// <param name="chid"></param>
+        /// <returns></returns>
+        public List<ChapterSource> GetChapterFileById(int chid)
+        {
+            DataTable dt = _dal.GetChapterFileById(chid);
+            return (from DataRow dr in dt.Rows select DataRowToFile(dr)).ToList();
+        }
 
         public DataTable GetChapterlist()   
         {
@@ -137,10 +147,11 @@ namespace BLL
         /// <param name="chId"></param>
         /// <param name="filesUrl"></param>
         /// <param name="filesType"></param>
+        /// <param name="fileDesc"></param>
         /// <returns></returns>
-        public bool AddChapterFiles(int chId, string filesUrl, string filesType)
+        public bool AddChapterFiles(int chId, string filesUrl, string filesType, string fileDesc)
         {
-            return _dal.AddChapterFiles(chId, filesUrl, filesType);
+            return _dal.AddChapterFiles(chId, filesUrl, filesType, fileDesc);
         }
 
 
@@ -198,6 +209,10 @@ namespace BLL
                 if (row["id"] != null && row["id"].ToString() != "")
                 {
                     model.id = int.Parse(row["id"].ToString());
+                }
+                if (row["fileDesc"] != null)
+                {
+                    model.fileDesc = row["fileDesc"].ToString();
                 }
                 if (row["chName"] != null)
                 {

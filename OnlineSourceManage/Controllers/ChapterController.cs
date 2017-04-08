@@ -223,11 +223,11 @@ namespace OnlineSourceManage.Controllers
             var fileType = Path.GetExtension(fileName).Substring(1).ToUpper();
             {
                 var filePath = Path.Combine(Request.MapPath(@"~/Files"), fileName);
-                var s = filePath.Substring(filePath.LastIndexOf("Files") + 0);
+                var s = filePath.Substring(filePath.LastIndexOf("Files") - 1);
                 try
                 {
                     file.SaveAs(filePath);
-                    bool isok = _bll.AddChapterFiles(chId, s, fileType);
+                    bool isok = _bll.AddChapterFiles(chId, s, fileType,file.FileName);
                     if (isok)
                     {
                         return Redirect("ChapterPage");

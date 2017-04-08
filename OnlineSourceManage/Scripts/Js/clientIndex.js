@@ -48,7 +48,7 @@ function LoadCartData(url, parm) {
             var count = d.total, data = d.rows;
             var html = "";
             $.each(data, function (i, val) {
-                html += '<div class="col-md-3"><div class="course-wrapper"><a target="_blank" class="course-card" href="javascript:;">'
+                html += '<div class="col-md-3"><div class="course-wrapper"><a target="_blank" class="course-card" href="/ClientCourse/ClientChapters?cid='+val.cId+'&cname='+val.cName+'&types='+val.types+'&level='+val.levelNum+'&time='+val.startTime+'">'
                    + '<div class="course-card-top"><i class="fa fa-play-circle"></i><span>'
                    + val.types + '</span></div><div class="course-card-content"><h3 class="course-card-name">'
                    + val.cName + '</h3><p>' + val.mark + '</p><div class="clearfix course-card-bottom"><div class="course-card-info">'

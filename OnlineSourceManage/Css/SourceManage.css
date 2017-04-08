@@ -1,6 +1,6 @@
 .body {
   position: relative;
-}
+  background: #f3f5f7; }
 
 .header {
   width: 100%;
@@ -8,57 +8,55 @@
   line-height: 45px;
   background: #333;
   box-shadow: -1px 0 1px #aaa;
-  color: #fff;
-}
-.header a {
-  color: inherit;
-}
+  color: #fff; }
+  .header .avatar {
+    display: inline-block;
+    width: 140px;
+    height: 45px;
+    cursor: pointer;
+    padding: 0 10px;
+    text-decoration: none; }
+    .header .avatar:hover {
+      background: #1b6d85; }
+  .header a {
+    color: inherit; }
 
 .nav {
   width: 100%;
   border-bottom: 1px solid #f3f5f7;
-  box-shadow: -1px 0 1px #aaa;
-}
-.nav ul {
-  padding-left: 0;
-  width: 100%;
-}
-.nav ul li {
-  display: inline-block;
-  margin-right: 15px;
-  padding: 15px 10px;
-  cursor: pointer;
-}
-.nav ul li:hover .icon {
-  color: #010b0d;
-}
-.nav ul li:hover a {
-  color: #14a8a0;
-}
-.nav ul li .icon {
-  display: inline-block;
-  font-size: 35px;
-  margin-right: 15px;
-  color: #65b0d2;
-  -webkit-transition: all 0.1s ease-in;
-  transition: all 0.1s ease-in;
-}
-.nav ul li a {
-  color: inherit;
-  display: inline-block;
-  text-decoration: none;
-  -webkit-transition: all 0.1s ease-in;
-  transition: all 0.1s ease-in;
-}
-.nav ul li a p {
-  margin-bottom: 0;
-  line-height: 1.5;
-  font-weight: 500;
-}
-.nav ul li a i {
-  font-style: normal;
-  color: #bbb;
-}
+  box-shadow: -1px 0 1px #aaa; }
+  .nav ul {
+    padding-left: 0;
+    width: 100%; }
+    .nav ul li {
+      display: inline-block;
+      margin-right: 15px;
+      padding: 15px 10px;
+      cursor: pointer; }
+      .nav ul li:hover .icon {
+        color: #010b0d; }
+      .nav ul li:hover a {
+        color: #14a8a0; }
+      .nav ul li .icon {
+        display: inline-block;
+        font-size: 35px;
+        margin-right: 15px;
+        color: #65b0d2;
+        -webkit-transition: all 0.1s ease-in;
+        transition: all 0.1s ease-in; }
+      .nav ul li a {
+        color: inherit;
+        display: inline-block;
+        text-decoration: none;
+        -webkit-transition: all 0.1s ease-in;
+        transition: all 0.1s ease-in; }
+        .nav ul li a p {
+          margin-bottom: 0;
+          line-height: 1.5;
+          font-weight: 500; }
+        .nav ul li a i {
+          font-style: normal;
+          color: #bbb; }
 
 .main-body {
   position: absolute;
@@ -68,104 +66,145 @@
   top: 137px;
   background: #f3f5f7;
   overflow: hidden;
-  padding: 5px;
-}
-.main-body .scroll-box {
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-}
-.main-body .scroll-box .course-wrapper {
-  height: 248px;
-  margin-top: 20px;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-.main-body .scroll-box .course-wrapper .course-card {
-  display: block;
-  position: relative;
-  z-index: 1;
-  border-radius: 4px;
-  overflow: hidden;
-  text-decoration: none;
-}
-.main-body .scroll-box .course-wrapper .course-card .course-card-top {
-  position: relative;
-  height: 48px;
-  line-height: 48px;
-  padding: 0 20px;
-  color: #fff;
-  font-weight: 600;
-}
-.main-body .scroll-box .course-wrapper .course-card .course-card-top::after {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  background: url("../Images/7.jpg") 100% 100%;
-}
-.main-body .scroll-box .course-wrapper .course-card .course-card-top span {
-  padding-left: 10px;
-}
-.main-body .scroll-box .course-wrapper .course-card .course-card-content {
-  height: 200px;
-  background-color: #fff;
-  padding: 16px 24px;
-  box-sizing: border-box;
-}
-.main-body .scroll-box .course-wrapper .course-card .course-card-content .course-card-name {
-  font-size: 16px;
-}
-.main-body .scroll-box .course-wrapper .course-card .course-card-content .course-card-bottom {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  left: 24px;
-  height: 24px;
-  line-height: 24px;
-  font-size: 12px;
-  text-align: left;
-}
+  padding: 5px; }
+  .main-body .scroll-box {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; }
+    .main-body .scroll-box .course-wrapper {
+      height: 248px;
+      margin-top: 20px;
+      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+      -webkit-transition: all 0.2s ease-in;
+      transition: all 0.2s ease-in; }
+      .main-body .scroll-box .course-wrapper .course-card {
+        display: block;
+        position: relative;
+        z-index: 1;
+        border-radius: 4px;
+        overflow: hidden;
+        text-decoration: none; }
+        .main-body .scroll-box .course-wrapper .course-card .course-card-top {
+          position: relative;
+          height: 48px;
+          line-height: 48px;
+          padding: 0 20px;
+          color: #fff;
+          font-weight: 600; }
+          .main-body .scroll-box .course-wrapper .course-card .course-card-top::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: url("../Images/7.jpg") 100% 100%; }
+          .main-body .scroll-box .course-wrapper .course-card .course-card-top span {
+            padding-left: 10px; }
+        .main-body .scroll-box .course-wrapper .course-card .course-card-content {
+          height: 200px;
+          background-color: #fff;
+          padding: 16px 24px;
+          box-sizing: border-box; }
+          .main-body .scroll-box .course-wrapper .course-card .course-card-content .course-card-name {
+            font-size: 16px; }
+          .main-body .scroll-box .course-wrapper .course-card .course-card-content .course-card-bottom {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            left: 24px;
+            height: 24px;
+            line-height: 24px;
+            font-size: 12px;
+            text-align: left; }
 
 /*course*/
 .course-nav {
   width: 100%;
-  background: #2c7a79;
-}
-.course-nav ul {
-  padding-left: 0;
-  width: 100%;
-  font-size: 0;
-}
-.course-nav ul li {
-  display: inline-block;
-  padding: 15px;
-  text-align: center;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  margin-right: 1px;
-}
-.course-nav ul li:hover, .course-nav ul li.active {
-  background: #254d4c;
-}
+  background: #2c7a79; }
+  .course-nav h2 {
+    color: #fff;
+    font-weight: bold; }
+  .course-nav ul {
+    padding-left: 0;
+    width: 100%;
+    font-size: 0; }
+    .course-nav ul li {
+      display: inline-block;
+      padding: 5px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      margin-right: 15px; }
+      .course-nav ul li:hover, .course-nav ul li.active {
+        background: #2b6d6c; }
+      .course-nav ul li:last-child span {
+        border-right: none; }
+      .course-nav ul li span {
+        font-size: 12px;
+        color: #ccc;
+        display: block;
+        padding-right: 20px;
+        border-right: 1px solid #888; }
+        .course-nav ul li span p {
+          color: #fff;
+          font-weight: 700;
+          margin-bottom: 0; }
 
 .main-course {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 92px;
-  background: #f3f5f7;
-  overflow: hidden;
-  padding: 5px;
-}
-.main-course .scroll-box {
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-}
+  margin-top: 15px; }
+  .main-course .container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+    .main-course .container .left-wrapper {
+      width: 270px;
+      padding: 8px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); }
+      .main-course .container .left-wrapper p {
+        font-size: 16px;
+        padding: 5px;
+        border-bottom: 1px solid #ccc; }
+      .main-course .container .left-wrapper ul {
+        padding-left: 15px;
+        padding-top: 8px; }
+        .main-course .container .left-wrapper ul li {
+          font-size: 13px;
+          line-height: 24px;
+          padding: 6px;
+          list-style: none;
+          cursor: pointer; }
+          .main-course .container .left-wrapper ul li:hover, .main-course .container .left-wrapper ul li.active {
+            color: #fff;
+            background: #1b6d85; }
+          .main-course .container .left-wrapper ul li i {
+            padding-right: 10px;
+            font-weight: 700;
+            font-size: 14px; }
+    .main-course .container .right-wrapper {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      margin-left: 10px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.4); }
+      .main-course .container .right-wrapper .videos {
+        width: 100%;
+        height: 400px;
+        margin: 10px 5px; }
+      .main-course .container .right-wrapper ul {
+        padding-left: 5px;
+        font-size: 0; }
+        .main-course .container .right-wrapper ul li {
+          list-style: none;
+          line-height: 26px;
+          font-size: 12px;
+          background: #f3f5f7;
+          margin: 5px 0; }
+          .main-course .container .right-wrapper ul li a {
+            display: block;
+            color: inherit; }
+            .main-course .container .right-wrapper ul li a i {
+              padding: 0 5px; }
