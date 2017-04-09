@@ -37,6 +37,17 @@ namespace BLL
         {
             return _dal.CheckUserExist(name, pwd);
         }
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public List<Users> UserLogin(string name, string pwd)
+        {
+            DataTable dt = _dal.UserLogin(name, pwd);
+            return (from DataRow row in dt.Rows select _dal.DataRowToUser(row)).ToList();
+        }
 
         #endregion
 

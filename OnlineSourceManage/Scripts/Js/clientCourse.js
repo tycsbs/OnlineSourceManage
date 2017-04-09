@@ -1,4 +1,7 @@
 ﻿$(function () {
+    //监测是否登录
+    CheckLogin();
+
     //默认隐藏文件区域的video视图
     $("#video").css("display", "none");
     //根据cid查询课程章节
@@ -8,14 +11,26 @@
 
     //点击章节显示对应的文件列表
     $("#listwrapper").on('click', 'li', function () {
+        $("#file-wrapper").empty();
         $(this).addClass('active').siblings().removeClass('active');
         var chapterId = $(this).data("id");
         GetChapterFile("/ClientCourse/GetFileByChapter", chapterId);
     });
 
-
+    // } else { window.location.herf = '/ClientIndex/Index' }
 });
 
+function CheckLogin() {
+    $.ajax({
+        url: "/ClientCourse/CheckLogin",
+        success: function (d) {
+            var name = d.name;
+            if (name.length > 0) {
+                $("#login-box").empty().append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="user"> <i class="fa fa-sign-out"></i>退出</a>');
+            }
+        }
+    });
+}
 
 function LoadChapterNav() {
     var parmObj = toQueryParams(window.location.href);
@@ -53,7 +68,7 @@ function LoadHeadInfo(obj) {
 
 function GetChapterFile(url, chapterId) {
     //清空右侧显示区域内容，video默认不显示
-    
+
     $("#file-wrapper").empty();
     $.ajax({
         url: url,
@@ -61,13 +76,17 @@ function GetChapterFile(url, chapterId) {
         success: function (d) {
             var count = d.total, data = d.rows, s;
             if (count == 0) {
-                $("#file-wrapper").append('<div class="alert alert-danger text-center" style="font-size:12px;margin-top:10px;">数据暂无！</div>');
+                $("#video").css("display", "none");
+                $("#file-wrapper").empty().append('<div class="alert alert-danger text-center" style="font-size:12px;margin-top:10px;">数据暂无！</div>');
             } else {
                 $.each(data, function (i, v) {
-                    if (i == "MP4" || i == "WebM") {
+                    if (v.srcType == "MP4" || v.srcType == "WebM") {
+                        $("#file-wrapper").empty();
                         $("#video").attr("src", v.srcUrl).css("display", "block");
+                    } else {
+                        $("#file-wrapper").empty();
+                        s += '<li><a href="/' + v.srcUrl + '"><i class="fa fa-file"></i>' + v.fileDesc + '</a></li>';
                     }
-                    s += '<li><a href="' + v.srcUrl + '"><i class="fa fa-file"></i>' + v.fileDesc + '</a></li>';
                 });
                 $("#file-wrapper").append(s);
             }

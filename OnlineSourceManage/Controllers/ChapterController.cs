@@ -223,7 +223,7 @@ namespace OnlineSourceManage.Controllers
             var fileType = Path.GetExtension(fileName).Substring(1).ToUpper();
             {
                 var filePath = Path.Combine(Request.MapPath(@"~/Files"), fileName);
-                var s = filePath.Substring(filePath.LastIndexOf("Files") - 1);
+                var s = filePath.Substring(filePath.LastIndexOf("Files") + 0);
                 try
                 {
                     file.SaveAs(filePath);

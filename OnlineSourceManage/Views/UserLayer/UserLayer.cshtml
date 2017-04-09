@@ -49,8 +49,8 @@
                             <td>
                                 <span>性别：</span>
                                 <select name="sex" id="sex" class="form-control input-inline">
-                                    <option value="0">萌妹子</option>
-                                    <option value="1">帅小伙</option>
+                                    <option value="0">女</option>
+                                    <option value="1">男</option>
                                 </select>
                             </td>
                             <td>
@@ -81,7 +81,8 @@
         loadArea();
         //user操作
         var id = window.location.search.split("=")[1];
-        if (id != "undefined") {//如果有id,则为编辑信息，首先根据id查出用户信息，绑定到表单上
+        
+        if (id != "login") {//如果有id,则为编辑信息，首先根据id查出用户信息，绑定到表单上
             $.ajax({
                 url: "/UserLayer/GetUserById",
                 data: { uId: id },
@@ -103,8 +104,8 @@
             var pwd1 = $("#pwd").val();
             var pwd2 = $("#pwd2").val();
             var data = $("#userform").serialize();
-            if (id == "undefined") {
-
+            if (id == "login") {
+                
                 if (pwd1 == pwd2) {
                     $.ajax({
                         url: "/UserLayer/AddUser?" + data,
@@ -125,10 +126,11 @@
                 } else {
                     parent.layer.msg("密码必须一致！！！", { icon: 2, anim: 6 });
                 }
-            } else {
+            }
+            else {
                 if (pwd1 == pwd2) {
                     $.ajax({
-                        url: "/UserLayer/UpdataUser?" + data+"&uId="+id,
+                        url: "/UserLayer/UpdataUser?" + data + "&uId=" + id,
                         success: function (d) {
                             if (d == "ok") {
                                 parent.$("#dataList").datagrid("reload");
@@ -165,7 +167,7 @@
             });
         }
     });
-    
-    
+
+
 </script>
 </html>

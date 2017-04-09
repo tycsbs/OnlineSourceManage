@@ -18,6 +18,18 @@ namespace OnlineSourceManage.Controllers.client
             return View();  
         }
 
+        public ActionResult CheckLogin()
+        {
+            
+            string userId = Session["UserId"].ToString();
+            string userName = Session["UserName"].ToString();
+            if (userId.Length <= 0)
+            {
+              return  Redirect("/ClientIndex/Index");
+            }
+            return Json(new { name = userName, id = userId }, JsonRequestBehavior.AllowGet);
+        }
+
         private ChapterBll _bll = new ChapterBll();
         public ActionResult GetChaptersById(int cId)
         {

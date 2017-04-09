@@ -32,7 +32,7 @@ $(function () {
 
 
     $("#addUser").click(function() {
-        FrameAlert("新增用户", "/UserLayer/UserLayer", 740, 310);
+        FrameAlert("新增用户", "/UserLayer/UserLayer?tag=login", 740, 310);
     });
 
     $("#viewExcel").click(function() {

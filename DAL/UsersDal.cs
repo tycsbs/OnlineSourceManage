@@ -44,6 +44,18 @@ namespace DAL
             return count < 1;
         }
 
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public DataTable UserLogin(string name, string pwd)
+        {
+            var sql = string.Format("SELECT * FROM dbo.[User] WHERE uName = '{0}' AND pwd = '{1}'", name, pwd);
+            return SqlHelper.SqlDataTable(sql);
+        }
+
         #endregion
 
         #region 删除用户

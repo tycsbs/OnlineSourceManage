@@ -52,6 +52,43 @@ namespace OnlineSourceManage.Controllers.client
             return Json(new { total = list.Count, rows = list }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult RegisterPage()
+        {
+            return View("Register");
+        }
+
+        public ActionResult Register(string uName, string pwd, int sex, string home)
+        {
+            UsersBll bll = new UsersBll();
+            Users user = new Users();
+            user.uName = uName;
+            user.pwd = pwd;
+            user.sex = sex;
+            user.home = home;
+            user.role = 0;
+            bool result = bll.AddUser(user);
+            return Content(result ? "ok" : "err");
+        }
+
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public ActionResult UserLogin(string name,string pwd)
+        {
+            
+            UsersBll bll = new UsersBll();
+            List<Users> user  = bll.UserLogin(name, pwd);//默认不存在
+            Session["UserId"] = user[0].uId;
+            Session["UserName"] = user[0].uName;
+            
+            return Json(new {total=user.Count, row=user}, JsonRequestBehavior.AllowGet);
+        }
+
+
+
 
 
 
