@@ -2,7 +2,8 @@
  * Created by DELL on 2017/4/6.
  */
 $(function () {
-    CheckLogin();
+   CheckLogin();
+    //var utag = $("#usertag").val();
     //nav 加载
     LoadNavData();
     //加载默认卡片内容
@@ -28,9 +29,10 @@ $(function () {
                 data: { name: name, pwd: pwd },
                 success: function (data) {
                     var count = data.total;
+                    $("#usertag").val(name);
                     if (count > 0) {
                         layer.closeAll();
-                        $("#login-box").empty().append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="user"> <i class="fa fa-sign-out"></i>退出</a>');
+                        $("#login-box").empty().append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="logout" onclick="LogOut()"> <i class="fa fa-sign-out"></i>退出</a>');
                     } else {
                         layer.msg("用户名或密码错误！", { icon: 3 });
                     }
@@ -43,6 +45,8 @@ $(function () {
     $("#register").click(function () {
         FrameAlert("新用户注册", "/ClientIndex/RegisterPage", 370, 380);
     });
+
+   
 
 });
 
@@ -81,8 +85,9 @@ function LoadCartData(url, parm) {
             var levelMap = ["初级", "中级", "高级"];
             var count = d.total, data = d.rows;
             var html = "";
+            var user = $("#usertag").val();
             $.each(data, function (i, val) {
-                html += '<div class="col-md-3"><div class="course-wrapper"><a target="_blank" class="course-card" href="/ClientCourse/ClientChapters?cid=' + val.cId + '&cname=' + val.cName + '&types=' + val.types + '&level=' + val.levelNum + '&time=' + val.startTime + '">'
+                html += '<div class="col-md-3"><div class="course-wrapper"><a target="_self" class="course-card" href="/ClientCourse/ClientChapters?cid=' + val.cId + '&cname=' + val.cName + '&types=' + val.types + '&level=' + val.levelNum + '&time=' + val.startTime + '&u=' + user + '">'
                    + '<div class="course-card-top"><i class="fa fa-play-circle"></i><span>'
                    + val.types + '</span></div><div class="course-card-content"><h3 class="course-card-name">'
                    + val.cName + '</h3><p>' + val.mark + '</p><div class="clearfix course-card-bottom"><div class="course-card-info">'
@@ -93,6 +98,10 @@ function LoadCartData(url, parm) {
             //加载卡片界面的渐变背景样式
             LoadCardCss();
         }
+    });
+
+    $("#logout").click(function () {
+        LogOut();
     });
 }
 
@@ -140,14 +149,28 @@ function LoginAlert(title, content, w, h) {
     });
 }
 
+
+function LogOut() {
+    $.ajax({
+        url: "/ClientCourse/LogOut",
+        success: function (d) {
+            if (d == "ok") {
+                layer.alert("用户已经登出！", function () {
+                    window.location.href = '/ClientIndex/Index';
+                });
+            }
+        }
+    });
+}
 function CheckLogin() {
 
     $.ajax({
         url: "/ClientCourse/CheckLogin",
         success: function (d) {
-            var name = d.name;
-            if (name.length > 0) {
-                $("#login-box").empty().append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="user"> <i class="fa fa-sign-out"></i>退出</a>');
+            var name = d.name, id = d.id;
+            if (name != "-1") {
+                $("#usertag").val(id);
+                $("#login-box").empty().append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="logout" onclick="LogOut()"> <i class="fa fa-sign-out"></i>退出</a>');
             }
         }
     });

@@ -16,7 +16,7 @@
         var chapterId = $(this).data("id");
         GetChapterFile("/ClientCourse/GetFileByChapter", chapterId);
     });
-
+    
     // } else { window.location.herf = '/ClientIndex/Index' }
 });
 
@@ -25,15 +25,24 @@ function CheckLogin() {
         url: "/ClientCourse/CheckLogin",
         success: function (d) {
             var name = d.name;
-            if (name.length > 0) {
-                $("#login-box").empty().append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="user"> <i class="fa fa-sign-out"></i>退出</a>');
+            if (name != "-1") {
+                $("#login-box").empty().append('<a id="user" data-u="' + name + '"><i class="fa fa-user"></i> ' + name + '</a> | <a id="logout"  onclick="LogOut()"> <i class="fa fa-sign-out"></i>退出</a>');
+            } else {
+                layer.alert("请先登录", { shade: [0.8, '#fff'] }, function () {
+                    window.history.go(-1);
+                });
+                
             }
+            
+
+
         }
     });
 }
 
 function LoadChapterNav() {
     var parmObj = toQueryParams(window.location.href);
+
     var cid = parmObj.cid;
     //加载课程名称
     LoadHeadInfo(parmObj);
@@ -126,6 +135,19 @@ function LoadChapters(url, parm) {
     });
 }
 
+
+function LogOut() {
+    $.ajax({
+        url: "/ClientCourse/LogOut",
+        success:function(d) {
+            if (d == "ok") {
+                layer.alert("用户已经登出！",function() {
+                    window.location.href = '/ClientIndex/Index';
+                });
+            }
+        }
+    });
+}
 //操作url参数
 function toQueryParams(url) {
     var search = url.replace(/^\s+/, '').replace(/\s+$/, '').match(/([^?#]*)(#.*)?$/);

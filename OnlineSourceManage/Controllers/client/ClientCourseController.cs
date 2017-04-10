@@ -20,15 +20,27 @@ namespace OnlineSourceManage.Controllers.client
 
         public ActionResult CheckLogin()
         {
-            
-            string userId = Session["UserId"].ToString();
-            string userName = Session["UserName"].ToString();
-            if (userId.Length <= 0)
+            if (Session["UserId"] != null)
             {
-              return  Redirect("/ClientIndex/Index");
+                string userId = Session["UserId"].ToString();
+                string userName = Session["UserName"].ToString();
+                if (userId.Length <= 0)
+                {
+                    return RedirectToRoute("/ClientIndex/Index");
+                }
+                return Json(new {name = userName, id = userId}, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { name = userName, id = userId }, JsonRequestBehavior.AllowGet);
+            return Json(new { name = "-1", id = -1 }, JsonRequestBehavior.AllowGet);
+            
         }
+
+        public ActionResult LogOut()
+        {
+            Session["UserId"] = null;
+            Session["UserName"] = null;
+            return Content("ok");
+        }
+
 
         private ChapterBll _bll = new ChapterBll();
         public ActionResult GetChaptersById(int cId)
