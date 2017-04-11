@@ -30,3 +30,4 @@ F:\vsCode\OnlineSourceManage\Modle\bin\Debug\NPOI.xml
 F:\vsCode\OnlineSourceManage\Modle\obj\Debug\Modle.dll
 F:\vsCode\OnlineSourceManage\Modle\obj\Debug\Modle.pdb
 F:\vsCode\OnlineSourceManage\Modle\obj\Debug\Modle.csprojResolveAssemblyReference.cache
+D:\baisong\gitrepository\OnlineSourceManage\Modle\obj\Debug\Modle.csprojResolveAssemblyReference.cache

@@ -60,13 +60,15 @@ namespace OnlineSourceManage.Controllers
         /// <returns></returns>
         public ActionResult UpdataUser(string uName, string pwd, int sex, string home, int role,int uId)
         {
-            Users user = new Users();
-            user.uName = uName;
-            user.pwd = pwd;
-            user.sex = sex;
-            user.home = home;
-            user.role = role;
-            user.uId = uId;
+            Users user = new Users
+            {
+                uName = uName,
+                pwd = pwd,
+                sex = sex,
+                home = home,
+                role = role,
+                uId = uId
+            };
             bool s = _bll.EditUser(user);
             return Content(s ? "ok" : "err");
         }

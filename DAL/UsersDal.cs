@@ -174,7 +174,7 @@ namespace DAL
         public bool EditUser(Users user)
         {
             
-            var sql = string.Format("update [dbo].[User] set uName = '{0}' , pwd = '{1}' , home = '{2}' , role = '{3}'  where uId = '{4}'",  user.uName, user.pwd, user.home,user.role, user.uId);
+            var sql = string.Format("update [dbo].[User] set uName = '{0}' , pwd = '{1}' , home = '{2}' , role = '{3}', sex = '{4}'  where uId = '{5}'",  user.uName, user.pwd, user.home,user.role,user.sex, user.uId);
             return SqlHelper.ExcuteNonQuery(sql) > 0;
         }
 

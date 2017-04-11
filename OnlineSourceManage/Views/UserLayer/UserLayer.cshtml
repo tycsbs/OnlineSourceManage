@@ -129,6 +129,7 @@
             }
             else {
                 if (pwd1 == pwd2) {
+                    
                     $.ajax({
                         url: "/UserLayer/UpdataUser?" + data + "&uId=" + id,
                         success: function (d) {
