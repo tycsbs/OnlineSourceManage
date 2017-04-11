@@ -2,7 +2,7 @@
  * Created by DELL on 2017/4/6.
  */
 $(function () {
-   CheckLogin();
+    CheckLogin();
     //var utag = $("#usertag").val();
     //nav 加载
     LoadNavData();
@@ -28,12 +28,21 @@ $(function () {
                 url: "/ClientIndex/UserLogin",
                 data: { name: name, pwd: pwd },
                 success: function (data) {
-                    var count = data.total;
+                    var count = data.total, user = data.row[0];
                     $("#usertag").val(name);
+                    console.table(user);
                     if (count > 0) {
-                        layer.closeAll();
-                        $("#login-box").empty().append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="logout" onclick="LogOut()"> <i class="fa fa-sign-out"></i>退出</a>');
-                    } else {
+                        if (user.useable == 0) {
+                            layer.closeAll();
+                            $("#login-box")
+                                .empty()
+                                .append('<a id="user"><i class="fa fa-user"></i> ' + name + '</a> | <a id="logout" onclick="LogOut()"> <i class="fa fa-sign-out"></i>退出</a>');
+                        } else {
+                            layer.msg("您的账户已被管理员禁用，请尽快联系管理员！");
+                            setTimeout(function () {LogOut();}, 2000);
+                        }
+                    }
+                    else {
                         layer.msg("用户名或密码错误！", { icon: 3 });
                     }
                 }
@@ -46,7 +55,7 @@ $(function () {
         FrameAlert("新用户注册", "/ClientIndex/RegisterPage", 370, 380);
     });
 
-   
+
 
 });
 
@@ -155,9 +164,7 @@ function LogOut() {
         url: "/ClientCourse/LogOut",
         success: function (d) {
             if (d == "ok") {
-                layer.alert("用户已经登出！", function () {
-                    window.location.href = '/ClientIndex/Index';
-                });
+                window.location.href = '/ClientIndex/Index';
             }
         }
     });

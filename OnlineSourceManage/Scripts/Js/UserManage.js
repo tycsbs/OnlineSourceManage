@@ -66,7 +66,7 @@ function initDataGrid(id) {
             { field: "home", title: "所在地", width: 100 },
             {
                 field: "sex", title: "性别", width: 100, formatter: function (value) {
-                    return value == 0 ? "<span class=' text-success'><i class='fa fa-female'></i> 萌妹子</span>" : "<span class='text-success'><i class='fa fa-user'></i> 帅小伙</span>";
+                    return value == 0 ? "<span class=' text-success'><i class='fa fa-female'></i> 女</span>" : "<span class='text-success'><i class='fa fa-user'></i> 男</span>";
                 }
             },
             {
@@ -330,9 +330,9 @@ function initEchartPie(id, t) {
                 if (t == "sex") {
                     for (var j = 0; j < strName.length; j++) {
                         if (j == 0) {
-                            strName[j] = "萌妹子";
+                            strName[j] = "女";
                         } else {
-                            strName[j] = "帅小伙";
+                            strName[j] = "男";
                         }
                     }
                 }

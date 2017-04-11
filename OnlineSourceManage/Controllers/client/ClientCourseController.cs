@@ -15,7 +15,7 @@ namespace OnlineSourceManage.Controllers.client
 
         public ActionResult ClientChapters()
         {
-            return View();  
+            return View();
         }
 
         public ActionResult CheckLogin()
@@ -24,10 +24,6 @@ namespace OnlineSourceManage.Controllers.client
             {
                 string userId = Session["UserId"].ToString();
                 string userName = Session["UserName"].ToString();
-                if (userId.Length <= 0)
-                {
-                    return RedirectToRoute("/ClientIndex/Index");
-                }
                 return Json(new {name = userName, id = userId}, JsonRequestBehavior.AllowGet);
             }
             return Json(new { name = "-1", id = -1 }, JsonRequestBehavior.AllowGet);

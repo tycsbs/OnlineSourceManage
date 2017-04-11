@@ -3,7 +3,7 @@
     CheckLogin();
 
     //默认隐藏文件区域的video视图
-    $("#video").css("display", "none");
+    //$("#video").css("display", "none");
     //根据cid查询课程章节
     LoadChapterNav();
 
@@ -16,7 +16,7 @@
         var chapterId = $(this).data("id");
         GetChapterFile("/ClientCourse/GetFileByChapter", chapterId);
     });
-    
+
     // } else { window.location.herf = '/ClientIndex/Index' }
 });
 
@@ -28,12 +28,12 @@ function CheckLogin() {
             if (name != "-1") {
                 $("#login-box").empty().append('<a id="user" data-u="' + name + '"><i class="fa fa-user"></i> ' + name + '</a> | <a id="logout"  onclick="LogOut()"> <i class="fa fa-sign-out"></i>退出</a>');
             } else {
-                layer.alert("请先登录", { shade: [0.8, '#fff'] }, function () {
-                    window.history.go(-1);
-                });
-                
+                layer.msg("请先登录", { shade: [0.8, '#fff'] });
+                setTimeout(function () {
+                    window.location.href = '/ClientIndex/Index';
+                }, 1500);
             }
-            
+
 
 
         }
@@ -78,26 +78,25 @@ function LoadHeadInfo(obj) {
 function GetChapterFile(url, chapterId) {
     //清空右侧显示区域内容，video默认不显示
 
-    $("#file-wrapper").empty();
     $.ajax({
         url: url,
         data: { chId: chapterId },
         success: function (d) {
-            var count = d.total, data = d.rows, s;
+            var count = d.total, data = d.rows, fileHtml = "" ,imgHtml = "";
             if (count == 0) {
-                $("#video").css("display", "none");
+                //$("#video").css("display", "none");
                 $("#file-wrapper").empty().append('<div class="alert alert-danger text-center" style="font-size:12px;margin-top:10px;">数据暂无！</div>');
             } else {
                 $.each(data, function (i, v) {
-                    if (v.srcType == "MP4" || v.srcType == "WebM") {
-                        $("#file-wrapper").empty();
-                        $("#video").attr("src", v.srcUrl).css("display", "block");
-                    } else {
-                        $("#file-wrapper").empty();
-                        s += '<li><a href="/' + v.srcUrl + '"><i class="fa fa-file"></i>' + v.fileDesc + '</a></li>';
+                    if (v.srcType == "PNG" || v.srcType == "JPG" || v.srcType == "GIF") {
+                        imgHtml += '<a href="/' + v.srcUrl + '"><img src="/' + v.srcUrl + '"></a>';
+                    }
+                    else {
+                        fileHtml += '<li><a href="/' + v.srcUrl + '"><i class="fa fa-file"></i>' + v.fileDesc + '</a></li>';
                     }
                 });
-                $("#file-wrapper").append(s);
+                $("#img-wrapper").empty().append(imgHtml);
+                $("#file-wrapper").empty().append(fileHtml);
             }
         }
     });
@@ -139,9 +138,9 @@ function LoadChapters(url, parm) {
 function LogOut() {
     $.ajax({
         url: "/ClientCourse/LogOut",
-        success:function(d) {
+        success: function (d) {
             if (d == "ok") {
-                layer.alert("用户已经登出！",function() {
+                layer.alert("用户已经登出！", function () {
                     window.location.href = '/ClientIndex/Index';
                 });
             }
